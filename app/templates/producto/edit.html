@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Editar Vehículo</title>
+</head>
+<body>
+    <h1>Editar Vehículo</h1>
+    <form action="{{ url_for('vehiculo.edit', id=vehiculo.id) }}" method="post" enctype="multipart/form-data">
+        <label for="marca">Marca:</label>
+        <input type="text" id="marca" name="marca" required value="{{ vehiculo.marca }}">
+        
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo" required value="{{ vehiculo.modelo }}">
+        
+        <label for="año">Año:</label>
+        <input type="text" id="año" name="año" required value="{{ vehiculo.año }}">
+        
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" required>{{ vehiculo.descripcion }}</textarea>
+        
+        <label for="color">Color:</label>
+        <input type="text" id="color" name="color" required value="{{ vehiculo.color }}">
+        
+        <label for="precio">Precio:</label>
+        <input type="text" id="precio" name="precio" required value="{{ vehiculo.precio }}">
+        
+        <label for="precio_anterior">Precio Anterior:</label>
+        <input type="text" id="precio_anterior" name="precio_anterior" required value="{{ vehiculo.precio_anterior }}">
+        
+        <label for="cilindraje">Cilindraje:</label>
+        <input type="text" id="cilindraje" name="cilindraje" required value="{{ vehiculo.cilindraje }}">
+
+        <label for="imagen">Agregar imagen:</label>
+        <input type="file" name="imagen" id="imagen">
+        
+        {% if imagen_url %}
+        <div>
+            <p>Imagen actual:</p>
+            <img src="{{ url_for('static', filename='img/vehiculos/' ~ vehiculo.id ~ '/' ~ vehiculo.id) }}" alt="Imagen del vehículo" style="max-width: 300px;">
+        </div>
+        {% endif %}
+        
+        <button type="submit">Actualizar Vehículo</button>
+    </form>
+</body>
+</html>

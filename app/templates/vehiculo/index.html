@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Auto.css') }}">
+
+    <title>INDEX</title>
+</head>
+<body>
+    <h1>Lista de Autos</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Descripción</th>
+            <th>Color</th>
+            <th>Cilindraje</th>
+            <th>Precio</th>
+            <th>Imagen</th>
+            <th>Elementos</th>
+        </tr>
+        {% for vehiculo in data %}
+            <tr>
+                <td>{{ vehiculo.id }}</td>
+                <td>{{ vehiculo.marca }}</td>
+                <td>{{ vehiculo.modelo }}</td>
+                <td>{{ vehiculo.descripcion }}</td>
+                <td>{{ vehiculo.color }}</td>
+                <td>{{ vehiculo.cilindraje }}</td>
+                <td>{{ vehiculo.precio }}</td>
+                {% if vehiculo.imagen %}
+                    <td>
+                        <a href="{{ url_for('caracteristicas.index', id=vehiculo.id) }}">
+                            <img src="{{ url_for('static', filename='img/vehiculos/' ~ vehiculo.marca ~ '/' ~ vehiculo.imagen) }}" alt="Imagen del vehículo" style="max-width: 300px;">
+                        </a>
+                    </td>
+                {% endif %}
+                <td>
+                    <a href="{{ url_for('vehiculo.edit', id=vehiculo.id) }}">Editar</a>
+                    <a href="{{ url_for('vehiculo.delete', id=vehiculo.id) }}">Eliminar</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ url_for('vehiculo.add') }}">Agregar Auto</a>
+</body>
+</html>

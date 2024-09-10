@@ -1,0 +1,434 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+body {
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Previene el desplazamiento horizontal */
+  }
+
+
+  .header .logo img {
+    height: auto; 
+    width: 150px; 
+    margin: 10px; 
+    .header .logo img {
+    margin-top: 20px; 
+}
+
+    filter: drop-shadow(
+        0 0 40px #ffffffee);
+    mask-image: linear-gradient(to right black 100%, transparent);
+  }
+
+header{
+    display: flex;
+    width: 100%;
+    justify-content: space-between ;
+    align-items: center;
+    margin-top: -90px;
+    height: 90px;
+    background-color: #000000e7;
+    position: fixed;
+    z-index: 1000;
+}
+ ul{
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.btn::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;            
+    background: #fff;
+    bottom: 3px;
+    border-radius: 5px;
+    transform: translateX(10px);
+    opacity: 0;
+    transition: .5s ease;
+}
+.btn:hover:after{
+    transform: translateX(0);
+    opacity: 90;
+}
+
+.navbar ul li{
+    position: relative;
+    margin-right: 20px;
+}
+
+.navbar ul li a{
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+}
+
+.submenu{
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px white;
+    min-width: 150px;
+    z-index: 100;
+}
+
+/*interaccion con el sub menu*/
+
+.boo{
+    cursor: pointer;
+    width: 7em;
+    aspect-ratio: 1/0.25;
+    color: white;
+    background-size: cover;
+    background-blend-mode: overlay;
+    border-radius: 0.3em;
+    border: 0;
+    box-shadow:  0 0 1em rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    position: relative;
+}
+
+.boo:hover {
+    transform: scale(1.1);
+    box-shadow: transparent;
+    background: transparent;
+    background: transparent;
+    outline: 0;
+  }
+
+/*---------*/
+
+.submenu-item:hover .submenu{
+    display: block;
+}
+
+/*EL BUSCAR*/
+
+.InputContainer {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    padding-left: 15px;
+  }
+  
+  .input {
+    width: 170px;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 0.9em;
+    caret-color: rgb(0, 0, 0);
+  }
+  
+  .labelforsearch {
+    cursor: text;
+    padding: 0px 12px;
+  }
+  
+  .searchIcon {
+    width: 13px;
+  }
+  
+  .border {
+    height: 40%;
+    width: 1.3px;
+    background-color: rgb(223, 223, 223);
+  }
+  
+  .micIcon {
+    width: 12px;
+  }
+  
+  .micButton {
+    padding: 0px 15px 0px 12px;
+    border: none;
+    background-color: transparent;
+    height: 40px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+  }
+  
+  .searchIcon path {
+    fill: rgb(114, 114, 114);
+  }
+  
+  .micIcon path {
+    fill: rgb(255, 81, 0);
+  }
+  
+  .micButton:hover {
+    background-color: rgb(255, 230, 230);
+    transition-duration: 0.3s;
+  }
+  
+/*Carrucel*/
+
+.container {
+    width: 100%;
+    left: 30%;
+    margin-top: 75px;
+}
+
+.carousel-inner {
+    position: relative;
+    width: 100%;
+    margin: 1px auto;
+    border-radius: 3px;
+    overflow: hidden;
+    height: 418px; /* Altura fija para el contenedor del carrusel */
+}
+
+.carrusel-item {
+    height: 100%; /* Llena todo el alto del contenedor */
+}
+
+.carrusel-item.active {
+    display: block; /* Show the active item */
+}
+
+.carousel-item {
+    width: 100%;
+    height: 100%;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+    
+}
+.control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color:  #000000dc;
+    color: white;
+    border: none;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.control.prev {
+    left: 0;
+}
+
+.control.next {
+    right: 0;
+}
+
+
+/*PROCIONES*/
+
+.promotions {
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #eaeaea;
+}
+
+.promotions small {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff5733;
+}
+
+.promotions p {
+    font-size: 16px;
+    color: #333;
+    margin-top: 10px;
+}
+
+/*-----------------------*/
+
+/* Contenedor de las tarjetas */
+.productos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+/* Estilo para las tarjetas */
+.row-tarje {
+    flex: 1 1 calc(25% - 40px); /* Ocupa el 25% del ancho menos 40px de margen */
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Estilo para el contenedor del producto */
+.produc-mo {
+    background: #ffffff;
+    border: 2px solid #dcdcdc;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    margin: 10px;
+    padding: 10px;
+}
+
+/* Efecto al pasar el mouse sobre la tarjeta */
+.produc-mo:hover {
+    transform: scale(1.05);
+    background-color: #f8f8f8;
+}
+
+/* Estilo para las imágenes */
+.imagen {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* Estilo para el cilindraje */
+.card-product__cilindraje {
+    font-size: 0.75rem;
+    color: #666666;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+/* Estilo para el nombre del modelo */
+.card-product__title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #000000;
+    margin: 5px 0;
+    text-align: left;
+}
+
+/* Estilo para la marca */
+.card-product__brand {
+    font-size: 0.875rem;
+    font-weight: bold;
+    color: #666666;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+/* Estilo para el año del modelo */
+.card-product__modelo {
+    font-size: 1rem;
+    text-align: right;
+    font-size: 0.875rem;
+    color: #666666;
+    margin: 5px 0;
+}
+
+/* Estilos para los precios */
+.card-product__price-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    background-color: #ffeb3b;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.card-product__price--old {
+    font-size: 1rem;
+    color: #ff0000;
+    text-decoration: line-through;
+    margin-right: 10px;
+}
+
+.card-product__price--new {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000000;
+}
+
+/* Estilo global para el texto */
+.card-product__cilindraje,
+.card-product__brand,
+.card-product__title,
+.card-product__modelo,
+.card-product__price {
+    font-family: 'Roboto', sans-serif;
+}
+/*---------*/
+
+/* Contenedor del carrusel */
+
+
+.text-center{
+    text-align: center;
+    font-size: 2rem;
+}
+.sec{
+    padding:  2%;
+    border: 1px green solid;
+    padding-right: -30px;
+}
+
+.carousel-wrapper {
+    overflow: hidden;   /* Fondo blanco para el contenedor del carrusel */
+    padding: 0; /* Ajustado el padding */
+    border: 1px #e6ff01 solid;
+    width: 100%;
+
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    border-radius: 8px; /* Bordes redondeados del contenedor */
+    text-align: center; /* Asegura que todo el contenido dentro del contenedor esté centrado */
+}
+
+.theme_brands {
+    overflow: hidden; /* Asegura que el contenido desbordado no sea visible */
+    display: flex;
+    margin-left: -20%;
+    padding-right: -90px;
+    padding-left: 35px;
+    user-select: none; /* Prevenir la selección de texto o elementos */
+    transition: transform 0.5s ease; /* Suaviza la transición del movimiento del carrusel */
+}
+
+.slide {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s;
+    flex: 0 0 auto; /* Evita que el slide cambie de tamaño */
+    margin-right: 5px; /* Reduce el espacio entre las tarjetas */
+}
+
+
+.slide a {
+    pointer-events: none; /* Desactiva la interacción del ratón con el enlace */
+    display: block; /* Asegura que el enlace ocupe todo el espacio del slide */
+}
+
+.img-fluid {
+    width: 30%;
+    max-width: 40%;
+    border-radius: 9px;
+    margin:  0;
+    padding-right:-40px ;
+}
+
+
