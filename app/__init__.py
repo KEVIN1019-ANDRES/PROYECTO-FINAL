@@ -22,10 +22,12 @@ def create_app():
     migrate.init_app(app, db)
 
     # Importar y registrar blueprints
-    from app.routes import caracteristica_routes, Carrito_routes, factura_routes, usuario_routes, Vista_routes
+    from app.routes import login_routes,caracteristica_routes, Carrito_routes, factura_routes, usuario_routes, Vista_routes
     app.register_blueprint(caracteristica_routes.bp)
     app.register_blueprint(Carrito_routes.bp)
     app.register_blueprint(factura_routes.bp)
+    app.register_blueprint(login_routes.usuario_routes)
+    
     
     # Registrar blueprint de usuario si existe
     if 'usuario_routes' in globals():
