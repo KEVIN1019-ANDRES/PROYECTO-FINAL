@@ -26,7 +26,9 @@ def create_app():
     app.register_blueprint(caracteristica_routes.bp)
     app.register_blueprint(Carrito_routes.bp)
     app.register_blueprint(factura_routes.bp)
-    app.register_blueprint(login_routes.usuario_routes)
+    app.register_blueprint(login_routes.bp)
+    app.register_blueprint(usuario_routes.bp)
+    
     
     
     # Registrar blueprint de usuario si existe

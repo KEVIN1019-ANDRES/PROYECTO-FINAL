@@ -1,17 +1,20 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from app.models.usuario import Usuario  # Asegúrate de importar el modelo Usuario
 
-usuario_routes = Blueprint('usuario_routes', __name__)
+bp = Blueprint('login', __name__)
 
-@usuario_routes.route('/login', methods=['GET', 'POST'])
+@bp.route('/login', methods=['GET', 'POST'])
 def login():
     print("entra al login")
     if request.method == 'POST':
         usuario = request.form.get('usuario')
         contraseña = request.form.get('contraseña')
         
+        print(f"Usuario: {usuario}")
+        print(f"Contraseña: {contraseña}")
+        
         # Busca el usuario en la base de datos
-        user = Usuario.query.filter_by(usuario=usuario).first()
+        user = Usuario.query.filter_by(username=usuario).first()
         
         # Verifica si el usuario existe y la contraseña es correcta
         if user and user.check_password(contraseña):
