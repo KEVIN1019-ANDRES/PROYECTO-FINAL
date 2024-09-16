@@ -1,4 +1,12 @@
-body {font-family: Arial, sans-serif;background-color: #ffffff;margin: 0;padding:0; align-items: center;  
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding:0; 
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }  
 
 .login-box{
@@ -6,6 +14,11 @@ body {font-family: Arial, sans-serif;background-color: #ffffff;margin: 0;padding
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
     border-radius: 10px;
     color: #333;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.915);
+    position: relative;
+    background: rgba(0,0,0,.9);
+    width: 400px;
 }
 .login-box a span:nth-child(1) {
     top: 0;
@@ -102,27 +115,52 @@ label {display: block;margin: 10px 0 5px;
 input[type="text"],  
 input[type="number"],  
 textarea,  
-input[type="file"] {width: 100%;padding: 10px;margin-bottom: 10px;border: 1px solid #ccc;border-radius: 4px;  
+input[type="file"] {width: 90%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;  
 }  
   
-button {width: 100%;padding: 10px;background-color: #000000;color: rgb(255, 255, 255);border: none;border-radius: 10px;cursor: pointer; display:inline-block; overflow: hidden; text-transform: uppercase; transition: .5s; letter-spacing: 3px;
+button {width: 100%;
+    padding: 10px;
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer; 
+    display:inline-block; 
+    overflow: hidden; 
+    text-transform: uppercase; 
+    transition: .5s; 
+    letter-spacing: 3px;
 }  
   
-button:hover {background-color: white; color: #000000; border-radius:5px;  
+button:hover {
+    background-color: white; 
+    color: #000000; 
+    border-radius:5px;  
 }  
   
-.login-box a span{
+.logi
+n-box a span{
 position: absolute;
 display: block;
 }
-.messages {list-style-type: none;padding: 0;  
+.messages {list-style-type: none;
+    padding: 0;  
 }  
   
-.messages li {padding: 10px;margin: 5px 0;border-radius: 4px;  
+.messages li {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;  
 }  
   
-.messages .error {background-color: #f2dede;color: #a94442;  
+.messages .error {background-color: #f2dede;
+    color: #a94442;  
 }  
   
-.messages .success {background-color: #dff0d8;color: #3c763d;  
+.messages .success {background-color: #dff0d8;
+    color: #3c763d;  
 }  
