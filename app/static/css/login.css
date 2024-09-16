@@ -10,13 +10,8 @@ body{
     background: #000;
     
 }
-.background{
-    background: url("{{ url_for('caracteristicas.index', imagen=vehiculo.imagen) }}") no-repeat;
-    background-position: center;
-    background-size:cover;
-    height: 100vh;
-    width: 100%;
-}
+
+
 
 .header{
     position: fixed;
@@ -88,21 +83,7 @@ body{
 .search-bar button i{
     font-size: 22px;
 }
-.container{
-    position: absolute;
-    left: 50%;
-    top: 53%;
-    transform: translate(-50%,-50%);
-    width: 75%;
-    height: 550px;
-    margin-top: 20px;
-    background: url(5.jpg) no-repeat;
-    background-position: center;
-    background-size:cover ;
-    border-radius: 20px;
-    overflow: hidden;
-    
-}
+
 .item{
     position: absolute;
     top: 0; 
@@ -116,8 +97,6 @@ body{
     justify-content: space-between;
     flex-direction: column;
     
-
-
 }
 .item .logo{
     color: #fff;
@@ -185,9 +164,10 @@ body{
     font-size: 25px;
 }
 
+
 .form-box .input-box{
-    width: 340px;
-    height: 50px;
+    width: 320px;
+    height: 40px;
     border-bottom: 2px solid#fff;
     margin: 30px 0;
     position: relative;
@@ -195,14 +175,16 @@ body{
 .input-box input{
     width: 100%;
     height: 100%;
-    background: transparent;
+    background-color: transparent;
     border: none;
     outline: none;
     font-size: 16px;
     padding-right: 28px;
-            color: #fff;
+            color: #fff9f9;
 
 }
+
+
 .input-box label{
     position: absolute;
     top: 50%;
@@ -234,6 +216,7 @@ body{
     justify-content: space-between;
 
 }
+
 .remember-password label input{
     accent-color: #fff;
     margin-right: 3px;
