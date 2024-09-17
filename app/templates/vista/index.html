@@ -46,22 +46,29 @@
       </nav>
 
       <div class="InputContainer">
-          <input placeholder="Buscar..." id="input" class="input" name="text" type="text">
+        <form method="get" action="{{ url_for('moto_details.index') }}">
+          <input 
+            placeholder="Buscar..." 
+            id="input" 
+            class="input" 
+            name="search" 
+            type="text" 
+            value="{{ request.args.get('search', '') }}"
+          >
           <label class="labelforsearch" for="input">
-              <svg class="searchIcon" viewBox="0 0 512 512">
-                  <path d="M416 208c0..."></path>
-              </svg>
+            <svg class="searchIcon" viewBox="0 0 512 512">
+              <path d="M416 208c0..."></path>
+            </svg>
           </label>
-          <div class="border"></div>
-          <button class="micButton">
-              <svg class="micIcon" viewBox="0 0 512 512">
-                  <path d="M416 208c0..."></path>
-              </svg>
+          <button type="submit" class="micButton">
+            <svg class="micIcon" viewBox="0 0 512 512">
+              <path d="M416 208c0..."></path>
+            </svg>
           </button>
+        </form>
       </div>
   </header>
 
-<<<<<<< Updated upstream
     <!-- Sección de Carrusel -->
     <div class="container">
       <div class="carousel-inner">
@@ -74,120 +81,62 @@
       <button class="control next">&#10095;</button>
     </div>
 
-  <!---->
-
-  
-  <section class="sec">
-    <h2 class="text-center">NUESTRAS MARCAS DE MOTORLAND</h2>
-    <div class="carousel-wrapper">
-      <div class="theme_brands">
-        <div class="slide">
-          <a href="https://moto100.com.co/marca/benelli">
-            <img class="img-fluid" src="{{ url_for('static', filename='img/benelli.webp') }}" alt="Benelli">
-          </a>
-        </div>
-        
-
-        <div class="slide">
-          <a href="https://moto100.com.co/marca/ktm">
-            <img class="img-fluid" src= "{{ url_for('static', filename='/img/ktm.webp') }}" alt="KTM">
-          </a>
-        </div> 
-
-        <div class="slide">
-          <a href="https://moto100.com.co/marca/benelli">
-            <img class="img-fluid" src="{{ url_for('static', filename='img/kawasaki.webp') }}" alt="Benelli">
-          </a>
-        </div>
-
-        <div class="slide">
-          <a href="https://moto100.com.co/marca/benelli">
-            <img class="img-fluid" src="{{ url_for('static', filename='img/benelli.webp') }}" alt="Benelli">
-          </a>
-        </div>
-
-        <div class="slide">
-          <a href="https://moto100.com.co/marca/benelli">
-            <img class="img-fluid" src="{{ url_for('static', filename='img/benelli.webp') }}" alt="Benelli">
-          </a>
-        </div>
-
-        <div class="slide">
-          <a href="https://moto100.com.co/marca/benelli">
-            <img class="img-fluid" src="{{ url_for('static', filename='img/benelli.webp') }}" alt="Benelli">
-          </a>
-        </div>
-
-        <div class="slide">
-          <a href="https://moto100.com.co/marca/benelli">
-            <img class="img-fluid" src="{{ url_for('static', filename='img/benelli.webp') }}" alt="Benelli">
-          </a>
-        </div>
-
-        <div class="slide">
-          <a href="https://moto100.com.co/marca/benelli">
-            <img class="img-fluid" src="{{ url_for('static', filename='img/benelli.webp') }}" alt="Benelli">
-          </a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-    <!--PROMOCIONES-->
+    <!-- Promociones -->
     <section class="promotions">
       <small>🚀 ¡Descubre la adrenalina sobre ruedas! 🚀</small>
-      <p>Explora nuestra selección exclusiva de motocicletas de alta
-        calidad. Cada modelo está diseñado para ofrecerte la mejor
-        experiencia de conducción. No esperes más, encuentra la moto de
-        tus sueños y siente la velocidad como nunca antes.
-      </p></p>
+      <p>Explora nuestra selección exclusiva de motocicletas de alta calidad. Cada modelo está diseñado para ofrecerte la mejor experiencia de conducción. No esperes más, encuentra la moto de tus sueños y siente la velocidad como nunca antes.</p>
     </section>
 
-
-<!--CARTS-->
-<section class="productos" id="producct">
-  {% for vehiculo in data %}
-  <div class="row-tarje">
-    <div class="produc-mo">
-      <div class="card h-100" style="width: 18rem">
-        {% if vehiculo.imagen %}
-        <a href="{{ url_for('caracteristicas.index', id=vehiculo.id) }}">
-          <img src="{{ url_for('static', filename='img/vehiculos/' ~ vehiculo.marca ~ '/' ~ vehiculo.imagen) }}" class="card-img-top imagen"
-          alt="...">
-        </a>
-        {% endif %}
-      </div>
-      <hr>
-      <div class="info">
-        <div class="col">
-          <h6 class="text-uppercase text-secondary card-product__brand">
-            {{vehiculo.marca}}
-          </h6>
-          <h3 class="text-capitalize text-dark card-product__title">
-            {{vehiculo.modelo}}
-          </h3>
-        </div>
-        <div class="col">
-          <h6 class="text-end text-dark card-product__modelo">
-            {{vehiculo.año}}
-          </h6>
-          <h3 class="text-end card-product__price-wrapper">
-            {% if vehiculo.precio_anterior != 0 %}
-            <span class="card-product__price--old">{{ vehiculo.precio_anterior|formato_moneda }}</span>
+    <!-- Tarjetas de productos -->
+    <section class="productos" id="productos">
+      {% for vehiculo in vehiculos.items %}
+      <div class="row-tarje">
+        <div class="produc-mo">
+          <div class="card h-100" style="width: 18rem">
+            {% if vehiculo.imagen %}
+            <a href="{{ url_for('caracteristicas.index', id=vehiculo.id) }}">
+              <img src="{{ url_for('static', filename='img/vehiculos/' ~ vehiculo.marca ~ '/' ~ vehiculo.imagen) }}" class="card-img-top imagen" alt="...">
+            </a>
             {% endif %}
-            <span class="card-product__price--new">{{ vehiculo.precio|formato_moneda }}</span>
-          </h3>
+          </div>
+          <hr>
+          <div class="info">
+            <div class="col">
+              <h6 class="text-uppercase text-secondary card-product__brand">{{vehiculo.marca}}</h6>
+              <h3 class="text-capitalize text-dark card-product__title">{{vehiculo.modelo}}</h3>
+            </div>
+            <div class="col">
+              <h6 class="text-end text-dark card-product__modelo">{{vehiculo.año}}</h6>
+              <h3 class="text-end card-product__price-wrapper">
+                {% if vehiculo.precio_anterior != 0 %}
+                <span class="card-product__price--old">{{ vehiculo.precio_anterior|formato_moneda }}</span>
+                {% endif %}
+                <span class="card-product__price--new">{{ vehiculo.precio|formato_moneda }}</span>
+              </h3>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  {% endfor %}
-</section>
+      {% endfor %}
+    </section>
 
+    <!-- Paginación -->
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+        <li class="page-item {% if not vehiculos.has_prev %}disabled{% endif %}">
+          <a class="page-link" href="{{ url_for('moto_details.index', page=vehiculos.prev_num, search=request.args.get('search', '')) }}">Anterior</a>
+        </li>
+        {% for page_num in vehiculos.iter_pages() %}
+        <li class="page-item {% if vehiculos.page == page_num %}active{% endif %}">
+          <a class="page-link" href="{{ url_for('moto_details.index', page=page_num, search=request.args.get('search', '')) }}">{{ page_num }}</a>
+        </li>
+        {% endfor %}
+        <li class="page-item {% if not vehiculos.has_next %}disabled{% endif %}">
+          <a class="page-link" href="{{ url_for('moto_details.index', page=vehiculos.next_num, search=request.args.get('search', '')) }}">Siguiente</a>
+        </li>
+      </ul>
+    </nav>
 
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
-
   </body>
 </html>

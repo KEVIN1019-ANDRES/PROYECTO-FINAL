@@ -13,7 +13,7 @@ def index():
     page = request.args.get('page', 1,  type=int)
 
     # Filtrar vehículos basados en la consulta de búsqueda
-    print(f"Entra el index -----------{search_query}----   ---------------serach queresafadf")
+    print(f"Entra el index -----------{search_query}-----------------serach queresafadf")
     if search_query:
         vehiculos = Vehiculo.query.filter(
             Vehiculo.marca.ilike(f'%{search_query}%') |
