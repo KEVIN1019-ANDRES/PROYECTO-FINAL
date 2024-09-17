@@ -1,20 +1,27 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Venta de motocicletas y accesorios en SpeedRide. Encuentra tu moto ideal y disfruta de la velocidad sobre ruedas.">
-    <meta name="keywords" content="motocicletas, motos, accesorios, venta, SpeedRide, Kawasaki, Benelli, BMW, KTM">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Venta de motocicletas y accesorios en SpeedRide. Encuentra tu moto ideal y disfruta de la velocidad sobre ruedas."
+    />
+    <meta
+      name="keywords"
+      content="motocicletas, motos, accesorios, venta, SpeedRide, Kawasaki, Benelli, BMW, KTM"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SpeedRide</title>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-  </head>
+</head>
   <body>
     <header class="header">
       <div class="logo">
-        <img src="{{ url_for('static', filename='img/log/Logo-Photoroom.png') }}" alt="SpeedRide Logo">
+          <img src="{{ url_for('static', filename='img/log/Logo-Photoroom.png') }}" alt="SpeedRide Logo">
       </div>
+
       <nav class="navbar">
         <ul>
           <li><a href="#Inicio" class="btn">Inicio</a></li>
@@ -37,23 +44,24 @@
           <li><a href="/sobre-nosotros" class="btn">Nosotros</a></li>
         </ul>
       </nav>
-      <div class="InputContainer">
-        <form method="get" action="{{ url_for('moto_details.index') }}">
-          <input placeholder="Buscar..." id="input" class="input" name="search" type="text" value="{{ request.args.get('search', '') }}">
-          <label class="labelforsearch" for="input">
-            <svg class="searchIcon" viewBox="0 0 512 512">
-              <path d="M416 208c0..."></path>
-            </svg>
-          </label>
-          <button type="submit" class="micButton">
-            <svg class="micIcon" viewBox="0 0 512 512">
-              <path d="M416 208c0..."></path>
-            </svg>
-          </button>
-        </form>
-      </div>
-    </header>
 
+      <div class="InputContainer">
+          <input placeholder="Buscar..." id="input" class="input" name="text" type="text">
+          <label class="labelforsearch" for="input">
+              <svg class="searchIcon" viewBox="0 0 512 512">
+                  <path d="M416 208c0..."></path>
+              </svg>
+          </label>
+          <div class="border"></div>
+          <button class="micButton">
+              <svg class="micIcon" viewBox="0 0 512 512">
+                  <path d="M416 208c0..."></path>
+              </svg>
+          </button>
+      </div>
+  </header>
+
+<<<<<<< Updated upstream
     <!-- Sección de Carrusel -->
     <div class="container">
       <div class="carousel-inner">
@@ -66,69 +74,118 @@
       <button class="control next">&#10095;</button>
     </div>
 
-    <!-- Sección de marcas -->
-    <section class="sec">
-      <h2 class="text-center">NUESTRAS MARCAS DE MOTORLAND</h2>
-      <div class="carousel-wrapper">
-        <div class="theme_brands">
-          <div class="slide">
-            <a href="https://moto100.com.co/marca/benelli">
-              <img class="img-fluid" src="{{ url_for('static', filename='img/benelli.webp') }}" alt="Benelli">
-            </a>
-          </div>
-          <!-- Otras marcas -->
-        </div>
-      </div>
-    </section>
+  <!---->
 
-    <!-- Sección de promociones -->
+  
+  <section class="sec">
+    <h2 class="text-center">NUESTRAS MARCAS DE MOTORLAND</h2>
+    <div class="carousel-wrapper">
+      <div class="theme_brands">
+        <div class="slide">
+          <a href="https://moto100.com.co/marca/benelli">
+            <img class="img-fluid" src="{{ url_for('static', filename='img/benelli.webp') }}" alt="Benelli">
+          </a>
+        </div>
+        
+
+        <div class="slide">
+          <a href="https://moto100.com.co/marca/ktm">
+            <img class="img-fluid" src= "{{ url_for('static', filename='/img/ktm.webp') }}" alt="KTM">
+          </a>
+        </div> 
+
+        <div class="slide">
+          <a href="https://moto100.com.co/marca/benelli">
+            <img class="img-fluid" src="{{ url_for('static', filename='img/kawasaki.webp') }}" alt="Benelli">
+          </a>
+        </div>
+
+        <div class="slide">
+          <a href="https://moto100.com.co/marca/benelli">
+            <img class="img-fluid" src="{{ url_for('static', filename='img/benelli.webp') }}" alt="Benelli">
+          </a>
+        </div>
+
+        <div class="slide">
+          <a href="https://moto100.com.co/marca/benelli">
+            <img class="img-fluid" src="{{ url_for('static', filename='img/benelli.webp') }}" alt="Benelli">
+          </a>
+        </div>
+
+        <div class="slide">
+          <a href="https://moto100.com.co/marca/benelli">
+            <img class="img-fluid" src="{{ url_for('static', filename='img/benelli.webp') }}" alt="Benelli">
+          </a>
+        </div>
+
+        <div class="slide">
+          <a href="https://moto100.com.co/marca/benelli">
+            <img class="img-fluid" src="{{ url_for('static', filename='img/benelli.webp') }}" alt="Benelli">
+          </a>
+        </div>
+
+        <div class="slide">
+          <a href="https://moto100.com.co/marca/benelli">
+            <img class="img-fluid" src="{{ url_for('static', filename='img/benelli.webp') }}" alt="Benelli">
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+    <!--PROMOCIONES-->
     <section class="promotions">
       <small>🚀 ¡Descubre la adrenalina sobre ruedas! 🚀</small>
-      <p>Explora nuestra selección exclusiva de motocicletas de alta calidad. Cada modelo está diseñado para ofrecerte la mejor experiencia de conducción. No esperes más, encuentra la moto de tus sueños y siente la velocidad como nunca antes.</p>
+      <p>Explora nuestra selección exclusiva de motocicletas de alta
+        calidad. Cada modelo está diseñado para ofrecerte la mejor
+        experiencia de conducción. No esperes más, encuentra la moto de
+        tus sueños y siente la velocidad como nunca antes.
+      </p></p>
     </section>
 
-    <!-- Sección de productos -->
-    <section class="productos" id="producct">
-      {% for vehiculo in vehiculos.items %}
-      <div class="row-tarje">
-        <div class="produc-mo">
-          <div class="card h-100" style="width: 18rem">
-            {% if vehiculo.imagen %}
-            <a href="{{ url_for('caracteristicas.index', id=vehiculo.id) }}">
-              <img src="{{ url_for('static', filename='img/vehiculos/' ~ vehiculo.marca ~ '/' ~ vehiculo.imagen) }}" class="card-img-top imagen" alt="{{ vehiculo.modelo }}">
-            </a>
+
+<!--CARTS-->
+<section class="productos" id="producct">
+  {% for vehiculo in data %}
+  <div class="row-tarje">
+    <div class="produc-mo">
+      <div class="card h-100" style="width: 18rem">
+        {% if vehiculo.imagen %}
+        <a href="{{ url_for('caracteristicas.index', id=vehiculo.id) }}">
+          <img src="{{ url_for('static', filename='img/vehiculos/' ~ vehiculo.marca ~ '/' ~ vehiculo.imagen) }}" class="card-img-top imagen"
+          alt="...">
+        </a>
+        {% endif %}
+      </div>
+      <hr>
+      <div class="info">
+        <div class="col">
+          <h6 class="text-uppercase text-secondary card-product__brand">
+            {{vehiculo.marca}}
+          </h6>
+          <h3 class="text-capitalize text-dark card-product__title">
+            {{vehiculo.modelo}}
+          </h3>
+        </div>
+        <div class="col">
+          <h6 class="text-end text-dark card-product__modelo">
+            {{vehiculo.año}}
+          </h6>
+          <h3 class="text-end card-product__price-wrapper">
+            {% if vehiculo.precio_anterior != 0 %}
+            <span class="card-product__price--old">{{ vehiculo.precio_anterior|formato_moneda }}</span>
             {% endif %}
-          </div>
-          <hr>
-          <div class="info">
-            <div class="col">
-              <h6 class="text-uppercase text-secondary card-product__brand">{{ vehiculo.marca }}</h6>
-              <h3 class="text-capitalize text-dark card-product__title">{{ vehiculo.modelo }}</h3>
-            </div>
-            <div class="col">
-              <h6 class="text-end text-dark card-product__modelo">{{ vehiculo.año }}</h6>
-              <h3 class="text-end card-product__price-wrapper">
-                {% if vehiculo.precio_anterior != 0 %}
-                <span class="card-product__price--old">{{ vehiculo.precio_anterior|formato_moneda }}</span>
-                {% endif %}
-                <span class="card-product__price--new">{{ vehiculo.precio|formato_moneda }}</span>
-              </h3>
-            </div>
-          </div>
+            <span class="card-product__price--new">{{ vehiculo.precio|formato_moneda }}</span>
+          </h3>
         </div>
       </div>
-      {% endfor %}
-    </section>
-
-    <!-- Paginación -->
-    <div class="pagination">
-      {% if vehiculos.has_prev %}
-      <a href="{{ url_for('moto_details.index', page=vehiculos.prev_num, search=request.args.get('search', '')) }}">Anterior</a>
-      {% endif %}
-      {% if vehiculos.has_next %}
-      <a href="{{ url_for('moto_details.index', page=vehiculos.next_num, search=request.args.get('search', '')) }}">Siguiente</a>
-      {% endif %}
     </div>
+  </div>
+  {% endfor %}
+</section>
+
 
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 
