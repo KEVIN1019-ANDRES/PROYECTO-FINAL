@@ -2,241 +2,40 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Segoe UI';
 }
-
-
 
 body {
-    background: #ffffff;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden; /* Previene el desplazamiento horizontal */
-  }
-
-
-  .header .logo img {
-    height: auto; 
-    width: 150px; 
-    margin: 10px; 
-    .header .logo img {
-    margin-top: 20px; 
-}
-
-    filter: drop-shadow(
-        0 0 40px #ffffffee);
-    mask-image: linear-gradient(to right black 100%, transparent);
-  }
-
-header{
-    display: flex;
+    height: 100vh;
     width: 100%;
-    justify-content: space-between ;
-    align-items: center;
-    margin-top: -90px;
-    height: 90px;
-    background-color: #000000e7;
-    position: fixed;
-    z-index: 1000;
-}
- ul{
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    background: #FFF;
+    border: 2px solid  green ;
 }
 
-.btn::after{
-    content: "";
-    position: absolute;
-    left: 0;
+.container{
+    position: center;
+    height: 100vh;
     width: 100%;
-    height: 2px;            
-    background: #fff;
-    bottom: 3px;
-    border-radius: 5px;
-    transform: translateX(10px);
-    opacity: 0;
-    transition: .5s ease;
-}
-.btn:hover:after{
-    transform: translateX(0);
-    opacity: 90;
-}
-
-.navbar ul li{
-    position: relative;
-    margin-right: 20px;
-}
-
-.navbar ul li a{
-    color: #ffffff;
-    text-decoration: none;
-    padding: 10px 15px;
-    display: block;
-}
-
-.submenu{
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    padding: 10px 0;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px white;
-    min-width: 150px;
-    z-index: 100;
-}
-
-/*interaccion con el sub menu*/
-
-.boo{
-    cursor: pointer;
-    width: 7em;
-    aspect-ratio: 1/0.25;
-    color: white;
-    background-size: cover;
-    background-blend-mode: overlay;
-    border-radius: 0.3em;
-    border: 0;
-    box-shadow:  0 0 1em rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease-in-out;
-    position: relative;
-}
-
-.boo:hover {
-    transform: scale(1.1);
-    box-shadow: transparent;
-    background: transparent;
-    background: transparent;
-    outline: 0;
-  }
-
-/*---------*/
-
-.submenu-item:hover .submenu{
-    display: block;
-}
-
-/*EL BUSCAR*/
-
-.InputContainer {
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(255, 255, 255);
-    border-radius: 10px;
-    overflow: hidden;
-    cursor: pointer;
-    padding-left: 15px;
-  }
-  
-  .input {
-    width: 170px;
-    height: 100%;
-    border: none;
-    outline: none;
-    font-size: 0.9em;
-    caret-color: rgb(0, 0, 0);
-  }
-  
-  .labelforsearch {
-    cursor: text;
-    padding: 0px 12px;
-  }
-  
-  .searchIcon {
-    width: 13px;
-  }
-  
-  .border {
-    height: 40%;
-    width: 1.3px;
-    background-color: rgb(223, 223, 223);
-  }
-  
-  .micIcon {
-    width: 12px;
-  }
-  
-  .micButton {
-    padding: 0px 15px 0px 12px;
-    border: none;
-    background-color: transparent;
-    height: 40px;
-    cursor: pointer;
-    transition-duration: 0.3s;
-  }
-  
-  .searchIcon path {
-    fill: rgb(114, 114, 114);
-  }
-  
-  .micIcon path {
-    fill: rgb(255, 81, 0);
-  }
-  
-  .micButton:hover {
-    background-color: rgb(255, 230, 230);
-    transition-duration: 0.3s;
-  }
-  
-/*Carrucel*/
-
-.container {
-    width: 100%;
-    left: 30%;
-    margin-top: 75px;
-}
-
-.carousel-inner {
-    position: relative;
-    width: 100%;
-    margin: 1px auto;
-    border-radius: 3px;
-    overflow: hidden;
-    height: 418px; /* Altura fija para el contenedor del carrusel */
-}
-
-.carrusel-item {
-    height: 100%; /* Llena todo el alto del contenedor */
-}
-
-.carrusel-item.active {
-    display: block; /* Show the active item */
-}
-
-.carousel-item {
-    width: 100%;
-    height: 100%;
-}
-
-img{
-    width: 100%;
-    height: 100%;
     
 }
-.control {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color:  #000000dc;
-    color: white;
-    border: none;
-    font-size: 24px;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 2;
-}
 
-.control.prev {
-    left: 0;
-}
 
-.control.next {
-    right: 0;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*PROCIONES*/
@@ -389,16 +188,6 @@ img{
     padding-right: -30px;
 }
 
-.carousel-wrapper {
-    overflow: hidden;   /* Fondo blanco para el contenedor del carrusel */
-    padding: 0; /* Ajustado el padding */
-    border: 1px #e6ff01 solid;
-    width: 100%;
-
-    margin: 0 auto; /* Centra el contenedor horizontalmente */
-    border-radius: 8px; /* Bordes redondeados del contenedor */
-    text-align: center; /* Asegura que todo el contenido dentro del contenedor esté centrado */
-}
 
 .theme_brands {
     overflow: hidden; /* Asegura que el contenido desbordado no sea visible */

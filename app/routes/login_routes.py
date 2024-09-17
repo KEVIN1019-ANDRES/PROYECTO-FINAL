@@ -28,7 +28,7 @@ def login():
             if user.rol == 'admin':
                 return redirect(url_for('admin_dashboard'))  # Redirigir al panel de admin
             else:
-                return redirect(url_for('cliente_dashboard'))  # Redirigir al dashboard de cliente
+                return redirect(url_for('index'))  # Redirigir al dashboard de cliente
         else:
             flash('Credenciales inválidas', 'danger')
     print("antes del login")

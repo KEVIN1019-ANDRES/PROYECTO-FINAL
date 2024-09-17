@@ -1,29 +1,3 @@
-let currentSlide = 0;
-const slides = document.querySelectorAll('.carousel-item');
-const totalSlides = slides.length;
-
-function showSlide(index) {
-    slides.forEach((slide, i) => {
-        slide.style.display = (i === index) ? 'block' : 'none';
-    });
-}
-
-function nextSlide() {
-    currentSlide = (currentSlide + 1) % totalSlides;
-    showSlide(currentSlide);
-}
-
-function prevSlide() {
-    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-    showSlide(currentSlide);
-}
-
-setInterval(nextSlide, 2400); // Change image every 3 seconds
-
-// Initialize the carousel by showing the first slide
-showSlide(currentSlide);
-
-//---------------------
 
 document.addEventListener('DOMContentLoaded', function () {
     const track = document.querySelector('.theme_brands');
