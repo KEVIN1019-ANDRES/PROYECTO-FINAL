@@ -7,7 +7,7 @@ bp = Blueprint('login', __name__)
 def login():
     print("entra al login")
     if request.method == 'POST':
-        usuario = request.form.get('usuario')
+        usuario = request.form.get('nombreU')
         contraseña = request.form.get('contraseña')
         
         print(f"Usuario: {usuario}")
@@ -32,4 +32,4 @@ def login():
         else:
             flash('Credenciales inválidas', 'danger')
     print("antes del login")
-    return render_template('login/index.html')
+    return render_template('vista/index.html')
