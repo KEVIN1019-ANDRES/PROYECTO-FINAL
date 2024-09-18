@@ -19,12 +19,12 @@
             {% endif %}
         </ul>
 
-        <!-- Formulario para agregar al carrito -->
+
         <form action="{{ url_for('carritos.agregar_al_carrito', id=vehiculo.id) }}" method="POST">
             <input type="hidden" name="tipo" value="vehiculo">
             <label for="cantidad">Cantidad:</label>
             <input type="number" name="cantidad" id="cantidad" value="1" min="1">
-            <button type="submit" class="btn">Agregar al carrito</button>
+            <button type="submit" class="btn1">Agregar al carrito</button>
         </form>
 
         <a href="{{ url_for('vehiculo.index') }}" class="btn">Volver</a>
