@@ -1,224 +1,179 @@
-*{
-    margin: 0;
+* {
     padding: 0;
+    margin: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI';
+    font-family: sans-serif;
 }
 
-body {
-    height: 100vh;
-    width: 100%;
-    background: #FFF;
-}
-carousel-inner{
-    height: 300px;
-    overflow: hidden;
-    position: relative;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1)
+.container {
+    max-width: 90%;
+    margin: auto;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*PROCIONES*/
-
-.promotions {
-    background-color: #f8f9fa;
-    padding: 20px;
-    text-align: center;
-    border-bottom: 2px solid #eaeaea;
-}
-
-.promotions small {
-    font-size: 18px;
-    font-weight: bold;
-    color: #ff5733;
-}
-
-.promotions p {
-    font-size: 16px;
-    color: #333;
-    margin-top: 10px;
-}
-
-/*-----------------------*/
-
-/* Contenedor de las tarjetas */
-.productos {
+.flex {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    padding: 20px;
-    background-color: #ffffff;
+    align-items: center;
 }
 
-/* Estilo para las tarjetas */
-.row-tarje {
-    flex: 1 1 calc(25% - 40px); /* Ocupa el 25% del ancho menos 40px de margen */
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-/* Estilo para el contenedor del producto */
-.produc-mo {
-    background: #ffffff;
-    border: 2px solid #dcdcdc;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-    margin: 10px;
-    padding: 10px;
-}
-
-/* Efecto al pasar el mouse sobre la tarjeta */
-.produc-mo:hover {
-    transform: scale(1.05);
-    background-color: #f8f8f8;
-}
-
-/* Estilo para las imágenes */
-.imagen {
-    width: 100%;
-    height: 230px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-
-/* Estilo para el cilindraje */
-.card-product__cilindraje {
-    font-size: 0.75rem;
-    color: #666666;
-    text-align: center;
-    margin-bottom: 5px;
-}
-
-/* Estilo para el nombre del modelo */
-.card-product__title {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #000000;
-    margin: 5px 0;
-    text-align: left;
-}
-
-/* Estilo para la marca */
-.card-product__brand {
-    font-size: 0.875rem;
-    font-weight: bold;
-    color: #666666;
-    margin-bottom: 5px;
-    text-align: left;
-}
-
-/* Estilo para el año del modelo */
-.card-product__modelo {
-    font-size: 1rem;
-    text-align: right;
-    font-size: 0.875rem;
-    color: #666666;
-    margin: 5px 0;
-}
-
-/* Estilos para los precios */
-.card-product__price-wrapper {
+.flex1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 10px;
-    background-color: #ffeb3b;
-    padding: 5px;
-    border-radius: 5px;
 }
 
-.card-product__price--old {
-    font-size: 1rem;
-    color: #ff0000;
-    text-decoration: line-through;
+/*-----HEADER----*/
+.navbar {
+    height: 10vh;
+    line-height: 10vh;
+    background: white;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 0 15px;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.navbar-brand img {
+    margin-right: 10px;
+    width: 90px; /* Ajusta el tamaño del logo */
+    height: 90px; /* Ajusta el tamaño del logo */
+}
+
+.navbar-brand span {
+    font-size: 24px;
+    font-family: serif;
+    font-weight: bold;
+    color: #000000; /* Cambia el color del nombre aquí */
+}
+
+.menu {
+    flex: 1;
+    text-align: center;
+}
+
+nav ul {
+    display: inline-flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav li a {
+    text-decoration: none;
+    color: #000;
+    text-transform: capitalize;
+    transition: 0.5s;
+    font-size: 20px;
+    margin: 30px;
+    font-family: serif;
+}
+
+nav li a:hover {
+    color: #37B234;
+}
+
+/* Campo de búsqueda */
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    
+}
+
+.search-bar input {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    font-size: 15px;
+    font-family: serif;
+}
+
+.search-bar button {
+    background-color: #37B234;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.search-bar button:hover {
+    background-color: #2a8e29;
+}
+
+/* Login */
+.account {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.account i {
+    color: #37B234;
+    font-size: 25px;
+    margin-left: 20px;
     margin-right: 10px;
 }
 
-.card-product__price--new {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #000000;
+.media_button i {
+    font-size: 24px;
+    display: none;
+    cursor: pointer;
 }
 
-/* Estilo global para el texto */
-.card-product__cilindraje,
-.card-product__brand,
-.card-product__title,
-.card-product__modelo,
-.card-product__price {
-    font-family: 'Roboto', sans-serif;
+/* Estilos responsive */
+@media only screen and (max-width: 768px) {
+    .main_list {
+        overflow: hidden;
+        height: 0;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 10vh;
+        background: white;
+        transition: height 0.5s ease;
+    }
+
+    .show_list {
+        height: 250px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        padding-left: 0;
+    }
+
+    nav ul li {
+        margin-left: 0;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .media_button i {
+        display: block;
+        margin-right: 20px;
+        color: #37B234;
+    }
+
+    .account {
+        display: none;
+    }
+
+    .search-bar {
+        flex: 1;
+        margin-right: 20px;
+    }
 }
-/*---------*/
-
-/* Contenedor del carrusel */
-
-
-.text-center{
-    text-align: center;
-    font-size: 2rem;
-}
-.sec{
-    padding:  2%;
-    border: 1px green solid;
-    padding-right: -30px;
-}
-
-
-.theme_brands {
-    overflow: hidden; /* Asegura que el contenido desbordado no sea visible */
-    display: flex;
-    margin-left: -20%;
-    padding-right: -90px;
-    padding-left: 35px;
-    user-select: none; /* Prevenir la selección de texto o elementos */
-    transition: transform 0.5s ease; /* Suaviza la transición del movimiento del carrusel */
-}
-
-.slide {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    transition: transform 0.3s;
-    flex: 0 0 auto; /* Evita que el slide cambie de tamaño */
-    margin-right: 5px; /* Reduce el espacio entre las tarjetas */
-}
-
-
-.slide a {
-    pointer-events: none; /* Desactiva la interacción del ratón con el enlace */
-    display: block; /* Asegura que el enlace ocupe todo el espacio del slide */
-}
-
-
-.img-fluid {
-    width: 30%;
-    max-width: 40%;
-    border-radius: 9px;
-    margin:  0;
-    padding-right:-40px ;
-}
-
-
