@@ -18,6 +18,14 @@ body {
     width: 100%;
     
 }
+carousel-inner{
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1)
+}
 
 
 
@@ -211,6 +219,7 @@ body {
     pointer-events: none; /* Desactiva la interacción del ratón con el enlace */
     display: block; /* Asegura que el enlace ocupe todo el espacio del slide */
 }
+
 
 .img-fluid {
     width: 30%;
