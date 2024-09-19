@@ -15,10 +15,10 @@
             <li><strong>Cilindraje:</strong> {{ vehiculo.cilindraje }} cc</li>
             <li><strong>Precio:</strong> {{ vehiculo.precio|formato_moneda }}</li>
             {% if vehiculo.precio_anterior != 0 %}
-                <li><strong>Precio Anterior:</strong> {{ vehiculo.precio_anterior|formato_moneda }}</li>
+                <li><strong class="a2">Precio Anterior:</strong> {{ vehiculo.precio_anterior|formato_moneda }}</li>
             {% endif %}
         </ul>
-
+        
 
         <form action="{{ url_for('carritos.agregar_al_carrito', id=vehiculo.id) }}" method="POST">
             <input type="hidden" name="tipo" value="vehiculo">
