@@ -32,6 +32,6 @@ def login():
         else:
             flash('Credenciales inválidas', 'danger')
     print("antes del login")
-    return render_template('login/index.html')
+    return render_template('vista/index.html')
 
         
