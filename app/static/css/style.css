@@ -12,6 +12,8 @@ body {
     line-height: 1.6;
     padding: 20px;
     display: flex;
+    align-items: center;
+    height: 100vh;
     justify-content: center;
 }
 
@@ -22,7 +24,23 @@ body {
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
+.navbar-collapse {
+  position:  fixed;
+  top: 0;
+  left: 5px;
+  width: 100%; /* Adjust width as needed */
+  background-color: #f0f0f0; /* Change background color as desired */
+  padding: 10px; /* Add padding for spacing */
+  z-index: 1000; 
+  align-items: center;
+  padding: 10px;
+}
+.navbar-brand{
+  height: auto;
+  top: 0;
+  left: 100px;
+  position: fixed;
+}
 h1 {
     font-size: 2rem;
     color: #0056b3;
@@ -52,21 +70,51 @@ ul li strong {
     color: #333;
 }
 
+
 ul li::before {
     content: "• ";
     color: #0056b3;
     font-weight: bold;
     margin-right: 5px;
 }
+.vehicle-detail {
+  display: flex;
+  align-items: center; 
+  max-width: 300px;
+  height: auto;
+  align-items: center;
 
-li:last-child {
+}
+
+.vehicle-detail img {
+  width: 50%; 
+  height: auto;
+}
+
+.vehicle-detail ul {
+  width: 50%; 
+  margin-left: 20px; 
+  list-style: none;
+  padding: 0;
+  text-align: center;
+  justify-content: center ;
+}
+.container mt-4{
+  text-align: center;
+  align-items: center;
+  background-color: #333;
+}
+
+li:last-child .a2{
     color: red; 
     text-decoration: line-through;
 }
 
-li:last-child strong {
+li:last-child .a2 {
     color: red;
 }
+
+
 
 
 strong {
@@ -105,6 +153,7 @@ strong {
     );
     z-index: 1;
     transition: background 3s;
+    
   }
   
   .btn1:hover::before {
@@ -121,8 +170,8 @@ strong {
       transform: rotateY(360deg);
     }
   }
-.navbar-brand{
-    width: 5px;
-    position: relative;
+.navbar-brand img{
+    width: 75px;
+      position: relative;
     
 }

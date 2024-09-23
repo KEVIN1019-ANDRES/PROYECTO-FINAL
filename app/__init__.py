@@ -29,8 +29,6 @@ def create_app():
     app.register_blueprint(login_routes.bp)
     app.register_blueprint(usuario_routes.bp)
     
-    
-    
     # Registrar blueprint de usuario si existe
     if 'usuario_routes' in globals():
         app.register_blueprint(usuario_routes.bp)
