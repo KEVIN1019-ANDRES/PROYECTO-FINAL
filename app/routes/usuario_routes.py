@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from app.models.usuario import Usuario  # Asegúrate de importar correctamente el modelo Usuario
+from app.models.usuario import Usuario  
 from app import db
 
 bp = Blueprint('usuarios', __name__)
@@ -43,4 +43,32 @@ def register():
         return redirect(url_for('login.login'))  # Redirigir a la página de login
     
     return render_template('login/index.html')  # Asegúrate de tener la plantilla register.html
-# Archivo routes/cliente.py
+
+
+
+
+@bp.route('/recuperar_contraseña', methods=['GET', 'POST'])
+def recuperar_contraseña():
+    if request.method == 'POST':
+        correo = request.form.get('correo')
+        
+        # Verificar si el correo está registrado
+        usuario = Usuario.query.filter_by(email=correo).first()
+        if not usuario:
+            flash('El correo no está registrado.')
+            return redirect(url_for('usuarios.recuperar_contraseña'))
+        
+        # Generar un token para restablecer la contraseña
+        token = usuario.get_reset_password_token()
+        
+        # Enviar un correo electrónico con el token de restablecimiento de contraseña}
+        send_email('Recuperar Contraseña',
+                sender='noreply@demo.com',
+                recipients=[usuario.email],
+                text_body=render_template('email/reset_password.txt', usuario=usuario, token=token),
+                  
+        
+        flash('Se ha enviado un correo con las instrucciones para recuperar la contraseña.')
+        return redirect(url_for('usuarios.login'))
+    
+    return render_template('login/contra.html')
