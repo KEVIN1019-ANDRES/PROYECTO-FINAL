@@ -1,11 +1,12 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_mail import Mail
 
 # Inicializar SQLAlchemy y Flask-Migrate
 db = SQLAlchemy()
 migrate = Migrate()
-
+mail=Mail()
 def formato_moneda(value):
     return f"${value:,.2f}"
 
@@ -14,10 +15,11 @@ def create_app():
     
     # Configurar la URI de la base de datos
     app.config.from_object('config.Config')
+    
+    mail.init_app(app)
     # Configurar filtros Jinja2
     app.jinja_env.filters['formato_moneda'] = formato_moneda
 
-    # Inicializar la base de datos y Flask-Migrate con la app
     db.init_app(app)
     migrate.init_app(app, db)
 

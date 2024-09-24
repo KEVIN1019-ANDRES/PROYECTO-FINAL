@@ -12,3 +12,10 @@ class Config:
     SESSION_PERMANENT = False
     SESSION_USE_SIGNER = True
     SESSION_KEY_PREFIX = 'miapp_'
+    
+    MAIL_SERVER = 'smtp.example.com'      
+    MAIL_PORT = 587                       
+    MAIL_USE_TLS = True                   
+    MAIL_USERNAME = 'tu_email@example.com' 
+    MAIL_PASSWORD = 'tu_password'         
+    MAIL_DEFAULT_SENDER = 'noreply@demo.com'

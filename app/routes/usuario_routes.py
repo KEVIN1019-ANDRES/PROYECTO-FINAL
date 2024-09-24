@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from app.models.usuario import Usuario  
-from flask_mail import Message
+from flask_mail import Message, Mail
 from app import mail
 from app import db
 
@@ -15,7 +15,7 @@ def admin_dashboard():
     return render_template('admin/dashboard.html')
 
 
-@bp.route('/registraru', methods=['GET', 'POST'])
+@bp.route('/registrar', methods=['GET', 'POST'])
 def register():
     print("entra a register")
     if request.method == 'POST':
