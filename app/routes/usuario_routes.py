@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from app.models.usuario import Usuario  
+from flask_mail import Message
+from app import mail
 from app import db
 
 bp = Blueprint('usuarios', __name__)
@@ -45,10 +47,8 @@ def register():
     return render_template('login/index.html')  # Asegúrate de tener la plantilla register.html
 
 
-
-
-@bp.route('/recuperar_contraseña', methods=['GET', 'POST'])
-def recuperar_contraseña():
+@bp.route('/restablecer_contraseña', methods=['GET', 'POST'])
+def restablecer_contraseña():
     if request.method == 'POST':
         correo = request.form.get('correo')
         
@@ -56,19 +56,47 @@ def recuperar_contraseña():
         usuario = Usuario.query.filter_by(email=correo).first()
         if not usuario:
             flash('El correo no está registrado.')
-            return redirect(url_for('usuarios.recuperar_contraseña'))
+            return redirect(url_for('usuarios.restablecer_contraseña'))
         
-        # Generar un token para restablecer la contraseña
+        # Generar un token de restablecimiento de contraseña
         token = usuario.get_reset_password_token()
         
-        # Enviar un correo electrónico con el token de restablecimiento de contraseña}
-        send_email('Recuperar Contraseña',
-                sender='noreply@demo.com',
-                recipients=[usuario.email],
-                text_body=render_template('email/reset_password.txt', usuario=usuario, token=token),
-                  
-        
-        flash('Se ha enviado un correo con las instrucciones para recuperar la contraseña.')
-        return redirect(url_for('usuarios.login'))
+        # Enviar el correo electrónico con el enlace de restablecimiento de contraseña
+        send_reset_email(usuario, token)
+        flash('Se ha enviado un correo electrónico con instrucciones para restablecer la contraseña.')
+        return redirect(url_for('login.login'))
     
-    return render_template('login/contra.html')
+    return render_template('auth/restablecer_contraseña.html')
+
+def send_reset_email(usuario, token):
+    
+    
+    msg = Message('Restablecer Contraseña',
+                  sender='noreply@demo.com',
+                  recipients=[usuario.email])
+    msg.body = f'''Para restablecer tu contraseña, visita el siguiente enlace:
+{url_for('usuarios.reset_token', token=token, _external=True)}
+
+Si no solicitaste este cambio, simplemente ignora este correo y no se realizarán cambios.
+'''
+    mail.send(msg)
+
+@bp.route('/reset/<token>', methods=['GET', 'POST'])
+def reset_token(token):
+    usuario = Usuario.verify_reset_password_token(token)
+    if not usuario:
+        flash('Token inválido o expirado.')
+        return redirect(url_for('usuarios.restablecer_contraseña'))
+    
+    if request.method == 'POST':
+        contraseña = request.form.get('contraseña')
+        usuario.set_password(contraseña)
+        db.session.commit()
+        flash('Tu contraseña ha sido actualizada.')
+        return redirect(url_for('login.login'))
+    
+    return render_template('auth/reset_token.html')
+
+
+
+

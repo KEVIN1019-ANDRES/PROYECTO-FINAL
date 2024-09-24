@@ -16,6 +16,7 @@ def login():
         # Busca el usuario en la base de datos
         user = Usuario.query.filter_by(username=usuario).first()
         
+        
         # Verifica si el usuario existe y la contraseña es correcta
         if user and user.check_password(contraseña):
             # Autenticación exitosa
