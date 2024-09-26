@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, request
 from app.admin.models.vehiculo import Vehiculo
 
-bp = Blueprint('vista', __name__)
+bp = Blueprint('moto_details', __name__)
 
-@bp.route('/')
-def index():
+@bp.route('/moto/<int:id>', methods=['GET'])
+def index(id):
     # Obtener el número de página, por defecto será la primera
     page = request.args.get('page', 1, type=int)
 
@@ -25,5 +25,3 @@ def index():
 
     # Renderizar la vista principal con los resultados paginados
     return render_template('vista/index.html', vehiculos=vehiculos)
-
-

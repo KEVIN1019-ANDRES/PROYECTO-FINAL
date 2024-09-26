@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Auto.css') }}">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='Auto.css') }}">
     <title>INDEX</title>
 </head>
 <body>
@@ -33,8 +32,8 @@
                 <td>{{ vehiculo.precio }}</td>
                 {% if vehiculo.imagen %}
                     <td>
-                        <a href="{{ url_for('caracteristicas.index', id=vehiculo.id) }}">
-                            <img src="{{ url_for('static', filename='img/vehiculos/' ~ vehiculo.marca ~ '/' ~ vehiculo.imagen) }}" alt="Imagen del vehículo" style="max-width: 300px;">
+                        <a href="{{ url_for('caracteristicas.index', imagen=vehiculo.imagen) }}">
+                            <img src="{{ url_for('static', filename='img/' ~ vehiculo.marca ~ '/' ~ vehiculo.imagen) }}" alt="Imagen del vehículo" style="max-width: 300px;">
                         </a>
                     </td>
                 {% endif %}
@@ -43,7 +42,7 @@
                     <a href="{{ url_for('vehiculo.delete', id=vehiculo.id) }}">Eliminar</a>
                 </td>
             </tr>
-        {% endfor %}
+        {% endfor %}    
     </table>
     <a href="{{ url_for('vehiculo.add') }}">Agregar Auto</a>
 </body>

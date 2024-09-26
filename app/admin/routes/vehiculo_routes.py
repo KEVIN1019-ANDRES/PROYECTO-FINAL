@@ -88,7 +88,7 @@ def edit(id):
         imagen = request.files.get('imagen')
 
         # Validación de campos
-        if not (marca and modelo and descripcion and color and año and precio  and cilindraje):
+        if not (marca and modelo and descripcion and color and año and precio and cilindraje):
             return "Todos los campos son requeridos", 400
 
         # Actualizar los atributos del vehículo
