@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Lista de Usuarios</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Rol Actual</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for usuario in usuarios %}
+        <tr>
+            <td>{{ usuario.username }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.rol }}</td>
+            <td>
+                {% if usuario.id != current_user.id %}
+                <button onclick="cambiarRol({{ usuario.id }}, '{{ 'admin' if usuario.rol == 'cliente' else 'cliente' }}')">
+                    Cambiar a {{ 'Admin' if usuario.rol == 'cliente' else 'Cliente' }}
+                </button>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+function cambiarRol(userId, newRole) {
+    if (confirm(`¿Estás seguro de que quieres cambiar el rol de este usuario a ${newRole}?`)) {
+        fetch(`/admin/cambiar-rol/${userId}/${newRole}`, {
+            method: 'POST',
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                location.reload();
+            } else {
+                alert('Error: ' + data.message);
+            }
+        });
+    }
+}
+</script>
+{% endblock %}

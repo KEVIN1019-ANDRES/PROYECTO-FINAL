@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from flask_login import login_user, logout_user, login_required, current_user
-from app.models.usuario import Usuario  # Asegúrate de importar el modelo Usuario
-from app import db  # Asegúrate de importar tu objeto db
+from app.models.usuario import Usuario
+from app import db
+from flask_login import login_user, login_required, logout_user# Asegúrate de importar el modelo Usuario
 
 # Cambiamos el nombre del blueprint a 'auth'
 auth_bp = Blueprint('auth', __name__)
@@ -12,50 +12,27 @@ def login():
         # Obtiene los datos del formulario
         usuario = request.form.get('nombreU')
         contraseña = request.form.get('contraseña')
-
-        # Busca el usuario en la base de datos por su nombre de usuario
+        
         user = Usuario.query.filter_by(username=usuario).first()
         
-        
-        # Verifica si el usuario existe y la contraseña es correcta
         if user and user.check_password(contraseña):
-            # Inicia la sesión del usuario
             login_user(user)
-            
-            # Guarda el rol del usuario en la sesión
-            session['user_id'] = user.id  # Guarda el id del usuario en la sesión
-            session['user_role'] = user.rol  # Guarda el rol del usuario en la sesión
-
             flash('Inicio de sesión exitoso', 'success')
-
-            # Verifica si el usuario es administrador
+            
             if user.rol == 'admin':
-                # Si es administrador, redirige al panel de administración
-                return redirect(url_for('admin_index'))  # Ruta del panel de administrador
+                return redirect(url_for('usuarios.admin_dashboard'))
             else:
-                # Si es un cliente regular, redirige a la vista de usuario
-                return redirect(url_for('index'))  # Ruta para usuarios regulares
+                return redirect(url_for('usuarios.cliente_dashboard'))
         else:
             # Si las credenciales son incorrectas
             flash('Credenciales inválidas', 'danger')
-    print("antes del login")
-    return render_template('vista/index.html')
+    
+    return render_template('login/index.html')
 
-@auth_bp.route('/logout')
+@bp.route('/logout')
 @login_required
 def logout():
-    # Elimina las variables de sesión y cierra la sesión del usuario
-    session.pop('user_id', None)
-    session.pop('user_role', None)
     logout_user()
-    flash('Has cerrado sesión.', 'success')
-    return redirect(url_for('auth.login'))  
-# Ruta para el panel de administración (solo accesible por administradores)
-@auth_bp.route('/admin')
-@login_required
-def admin_index():
-    # Verifica si el usuario tiene el rol de administrador
-    if current_user.rol != 'admin':
-        flash('No tienes permiso para acceder a esta página.', 'danger')
-        return redirect(url_for('index'))  # Redirige si no es administrador
-    return render_template('producto/index.html')
+    flash('Has cerrado sesión', 'info')
+    return redirect(url_for('login.login'))
+
