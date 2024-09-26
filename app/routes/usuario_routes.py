@@ -26,7 +26,7 @@ def register():
         # Verificar si el correo ya está registrado
         if Usuario.query.filter_by(email=correo).first():
             flash('El correo ya está registrado.')
-            return redirect(url_for('login.login'))
+            return redirect(url_for('auth.login'))
         
         # Crear un nuevo usuario
         new_user = Usuario(
@@ -40,7 +40,7 @@ def register():
         db.session.add(new_user)
         db.session.commit()
         flash('Registro exitoso. Ahora puedes iniciar sesión.')
-        return redirect(url_for('login.login'))  # Redirigir a la página de login
+        return redirect(url_for('auth.login'))  # Redirigir a la página de login
     
     return render_template('login/index.html')  # Asegúrate de tener la plantilla register.html
 # Archivo routes/cliente.py

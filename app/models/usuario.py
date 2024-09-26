@@ -1,5 +1,6 @@
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
+# No importamos db aquí al inicio para evitar la importación circular
 
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -11,6 +12,7 @@ class Usuario(db.Model):
     rol = db.Column(db.String(20), nullable=True, default='cliente')
 
     def set_password(self, password):
+        from app import db  # Importar db dentro de la función
         self.password = generate_password_hash(password)
 
     def check_password(self, password):

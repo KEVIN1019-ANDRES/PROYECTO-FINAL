@@ -1,7 +1,10 @@
-<html lang="en"></html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
         .background {
@@ -12,37 +15,37 @@
             width: 100%;
         }
 
-        .container{
-        position: absolute;
-        left: 50%;
-        top: 53%;
-        transform: translate(-50%,-50%);
-        width: 75%;
-        height: 560px;
-        margin-top: 20px;
-        background: url("{{ url_for('static', filename='img/MY25-KTM-85-SX-STAGE-FULL-21_XLarge.jpeg') }}") no-repeat;
-        background-position: center;
-        background-size:cover ;
-        border-radius: 20px;
-        overflow: hidden;
+        .container {
+            position: absolute;
+            left: 50%;
+            top: 53%;
+            transform: translate(-50%, -50%);
+            width: 75%;
+            height: 560px;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
 <body>
     <!-- HEADER -->
-   <header class="header">
-    <nav class="navbar">
-        <a href="#">Inicio</a>
-        <a href="#">Nosotros</a>
-          <a href="#">Servicios</a>
-          <a href="#">Beneficios</a>
-          <a href="#">Contáctanos</a>
-    </nav>
-    <form action="" class="search-bar">
-       <input type="text"  placeholder="Buscar...">
-       <button><i class='bx bx-search'></i></button>
-    </form>
-   </header>
+    <header class="header">
+        <nav class="navbar">
+            <a href="#">Inicio</a>
+            <a href="#">Nosotros</a>
+            <a href="#">Servicios</a>
+            <a href="#">Beneficios</a>
+            <a href="#">Contáctanos</a>
+        </nav>
+        <form action="" class="search-bar">
+            <input type="text" placeholder="Buscar...">
+            <button><i class='bx bx-search'></i></button>
+        </form>
+    </header>
+
     <!-- LOGIN -->
     <div class="background"></div>
     <div class="container">
@@ -50,7 +53,7 @@
             <h2 class="logo"><i class='bx bxs-building'></i>LOGO</h2>
             <div class="text-item">
                 <h2>¡Bienvenido! <br><span>
-                    Estamos escantados de tenerte de nuevo.
+                    Estamos encantados de tenerte de nuevo.
                 </span></h2>
                 <p>Gracias a ti, estamos creciendo más allá de nuestras expectativas. 
                     Compartamos el éxito cada día.</p>
@@ -64,16 +67,25 @@
         </div>
         <div class="login-section">
             <div class="form-box login">
-                <form action="{{ url_for('login.login') }}" method="POST">
+                <form action="{{ url_for('auth.login') }}" method="POST">
                     <h2>Iniciar Sesión</h2>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            <ul>
+                            {% for category, message in messages %}
+                                <li class="{{ category }}">{{ message }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endwith %}
                     <div class="input-box">
                         <span class="icon"><i class='bx bxs-user-account'></i></span>
                         <input type="text" required name="nombreU">
                         <label>Usuario</label>
                     </div>
                     <div class="input-box">
-                        <span class="icon"><i class='bx bxs-lock-alt' ></i></span>
-                        <input type="password"  required name="contraseña">
+                        <span class="icon"><i class='bx bxs-lock-alt'></i></span>
+                        <input type="password" required name="contraseña">
                         <label>Contraseña</label>
                     </div>
                     <div class="remember-password">
@@ -89,47 +101,38 @@
             </div>
             <div class="form-box register">
                 <form action="{{ url_for('usuarios.register') }}" method="POST">
-
                     <h2>Ingreso</h2>
-
                     <div class="input-box">
                         <span class="icon"><i class='bx bxs-user'></i></span>
-                        <input type="text" name="nombre" required                                                                                           >
-                        <label >Nombre</label>
+                        <input type="text" name="nombre" required>
+                        <label>Nombre</label>
                     </div>
-
                     <div class="input-box">
                         <span class="icon"><i class='bx bxs-user-account'></i></span>
-                        <input type="text" name="nombreU" required                                                                                          >
+                        <input type="text" name="nombreU" required>
                         <label>Usuario</label>
                     </div>
-
                     <div class="input-box">
                         <span class="icon"><i class='bx bxs-envelope'></i></span>
-                        <input type="email" name="correo" required                                                                                          >
+                        <input type="email" name="correo" required>
                         <label>Email</label>
-                    </div> 
-
+                    </div>
                     <div class="input-box">
                         <span class="icon"><i class='bx bxs-phone'></i></span>
-                        <input type="text" name="telefono" required                                                                                             >
+                        <input type="text" name="telefono" required>
                         <label>Teléfono</label>
                     </div>
-
                     <div class="input-box">
-                        <span class="icon"><i class='bx bxs-lock-alt' ></i></span>
-                        <input type="password" name="contraseña" required                                                                                           >
+                        <span class="icon"><i class='bx bxs-lock-alt'></i></span>
+                        <input type="password" name="contraseña" required>
                         <label>Contraseña</label>
                     </div>
-
                     <div class="remember-password">
                         <label for=""><input type="checkbox">Estoy de acuerdo con los términos y condiciones</label>
                     </div>
-
-                    <button class="btn"  type="submit">Registrarse</button>
+                    <button class="btn" type="submit">Registrarse</button>
                     <div class="create-account">
-                        <p>Tienes una cuenta? <a href="#" class="login-link">
-                            Iniciar Sesión</a></p>
+                        <p>Tienes una cuenta? <a href="#" class="login-link">Iniciar Sesión</a></p>
                     </div>
                 </form>
             </div>
@@ -138,7 +141,3 @@
     <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 </body>
 </html>
-
-
-
-
