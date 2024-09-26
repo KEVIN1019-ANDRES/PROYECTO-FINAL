@@ -32,6 +32,7 @@ def register():
         
         # Crear un nuevo usuario
         new_user = Usuario(
+            nombre =nombre,
             username=nombreu,
             email=correo,
             telefono=telefono,
