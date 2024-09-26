@@ -15,8 +15,9 @@ def login():
 
         # Busca el usuario en la base de datos por su nombre de usuario
         user = Usuario.query.filter_by(username=usuario).first()
-
-        # Verifica si el usuario existe y si la contraseña es correcta
+        
+        
+        # Verifica si el usuario existe y la contraseña es correcta
         if user and user.check_password(contraseña):
             # Inicia la sesión del usuario
             login_user(user)
@@ -37,8 +38,8 @@ def login():
         else:
             # Si las credenciales son incorrectas
             flash('Credenciales inválidas', 'danger')
-
-    return render_template('login/index.html')
+    print("antes del login")
+    return render_template('vista/index.html')
 
 @auth_bp.route('/logout')
 @login_required

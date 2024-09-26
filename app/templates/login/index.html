@@ -23,10 +23,11 @@
             width: 75%;
             height: 560px;
             margin-top: 20px;
-            background: rgba(255, 255, 255, 0.8);
+            background: url("{{ url_for('static', filename='img/tu-imagen.jpg') }}") no-repeat; /* Cambiar 'tu-imagen.jpg' al nombre correcto */
+            background-position: center;
+            background-size: cover;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
@@ -42,10 +43,9 @@
         </nav>
         <form action="" class="search-bar">
             <input type="text" placeholder="Buscar...">
-            <button><i class='bx bx-search'></i></button>
+            <button><i class="bx bx-search"></i></button> <!-- Añadido el icono de búsqueda -->
         </form>
     </header>
-
     <!-- LOGIN -->
     <div class="background"></div>
     <div class="container">
@@ -132,7 +132,8 @@
                     </div>
                     <button class="btn" type="submit">Registrarse</button>
                     <div class="create-account">
-                        <p>Tienes una cuenta? <a href="#" class="login-link">Iniciar Sesión</a></p>
+                        <p>¿Tienes una cuenta? <a href="#" class="login-link">Iniciar Sesión</a></p>
+                        <p>Olvidó su contraseña? <a href="/restablecer_contraseña">Haz clic aquí</a></p>
                     </div>
                 </form>
             </div>
