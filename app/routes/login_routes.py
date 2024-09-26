@@ -3,11 +3,13 @@ from app.models.usuario import Usuario
 from app import db
 from flask_login import login_user, login_required, logout_user# Asegúrate de importar el modelo Usuario
 
-bp = Blueprint('login', __name__)
+# Cambiamos el nombre del blueprint a 'auth'
+auth_bp = Blueprint('auth', __name__)
 
-@bp.route('/login', methods=['GET', 'POST'])
+@auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
+        # Obtiene los datos del formulario
         usuario = request.form.get('nombreU')
         contraseña = request.form.get('contraseña')
         
@@ -22,6 +24,7 @@ def login():
             else:
                 return redirect(url_for('usuarios.cliente_dashboard'))
         else:
+            # Si las credenciales son incorrectas
             flash('Credenciales inválidas', 'danger')
     
     return render_template('login/index.html')

@@ -18,13 +18,12 @@ def index():
     
 
 @bp.route('/addfactura', methods=['GET', 'POST'])
-def  add():
-    
-    Factura = Factura(fechafactura=datetime.now().date(), idcliente=1)
-    db.session.add(Factura)
+def add():
+    nueva_factura = Factura(fechafactura=datetime.now().date(), idcliente=1)
+    db.session.add(nueva_factura)
     db.session.commit()
-    print("factura id ", Factura.idfactura)
-    return redirect(url_for('factura.addDetalle' ,id=Factura.idfactura))
+    print("factura id ", nueva_factura.idfactura)
+    return redirect(url_for('factura.addDetalle', id=nueva_factura.idfactura))
 
 
 
@@ -36,7 +35,8 @@ def Delete(id):
     db.session.delete(book)
     db.session.commit()
     
-    return redirect(url_for('Book.index'))
+    return redirect(url_for('factura.index'))
+
 
 
 

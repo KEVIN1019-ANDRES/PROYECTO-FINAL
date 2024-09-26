@@ -14,6 +14,7 @@ class Usuario(db.Model, UserMixin):
     rol = db.Column(db.String(20), nullable=False, default='cliente')
 
     def set_password(self, password):
+        from app import db  # Importar db dentro de la función
         self.password = generate_password_hash(password)
 
     def check_password(self, password):

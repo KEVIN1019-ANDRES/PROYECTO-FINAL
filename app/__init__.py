@@ -3,8 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager # Importar el modelo Usuario
 
-# Inicializar SQLAlchemy y Flask-Migrate
-db = SQLAlchemy()
+db = SQLAlchemy()  # Inicialización de SQLAlchemy
 migrate = Migrate()
 login_manager = LoginManager()
 
@@ -32,12 +31,10 @@ def create_app():
     app.register_blueprint(compra.compra_bp)
     app.register_blueprint(Carrito_routes.bp)
     app.register_blueprint(factura_routes.bp)
-    app.register_blueprint(login_routes.bp)
     app.register_blueprint(usuario_routes.bp)
     app.register_blueprint(Vista_routes.bp)
 
-
-    # Importar y registrar blueprints desde admin
+    # Registrar blueprints del admin
     from app.admin.routes import vehiculo_routes, producto_routes
     app.register_blueprint(vehiculo_routes.bp)
     app.register_blueprint(producto_routes.bp)

@@ -11,7 +11,7 @@ carrito_compras = Carrito()
 def index():
     productos = carrito_compras.getItems()
     data = Vehiculo.getItems()
-    return render_template('carrito/index.html', data=data, productos=productos)
+    return render_template('producto/list.html', data=data, productos=productos)
 
 
 @bp.route('/ListarCarrito')
