@@ -33,6 +33,9 @@ def create_app():
     app.register_blueprint(factura_routes.bp)
     app.register_blueprint(usuario_routes.bp)
     app.register_blueprint(Vista_routes.bp)
+    app.register_blueprint(login_routes.bp)
+    
+    
 
     # Registrar blueprints del admin
     from app.admin.routes import vehiculo_routes, producto_routes

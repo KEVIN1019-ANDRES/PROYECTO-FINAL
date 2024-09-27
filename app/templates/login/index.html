@@ -65,36 +65,46 @@
         </div>
         <div class="login-section">
             <div class="form-box login">
-                <form action="{{ url_for('auth.login') }}" method="POST">
-                    <h2>Iniciar Sesión</h2>
-                    {% with messages = get_flashed_messages(with_categories=true) %}
-                        {% if messages %}
-                            <ul>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="flash-messages">
                             {% for category, message in messages %}
-                                <li class="{{ category }}">{{ message }}</li>
+                                <div class="alert alert-{{ category }} fade-in" role="alert">
+                                    <span class="alert-icon">
+                                        {% if category == 'success' %}
+                                            ✓
+                                        {% elif category == 'error' %}
+                                            ✗
+                                        {% else %}
+                                            !
+                                        {% endif %}
+                                    </span>
+                                    <span class="alert-message">{{ message }}</span>
+                                    <button type="button" class="alert-close" onclick="this.parentElement.style.display='none';">&times;</button>
+                                </div>
                             {% endfor %}
-                            </ul>
-                        {% endif %}
-                    {% endwith %}
-                    <div class="input-box">
-                        <span class="icon"><i class="bx bxs-user-account"></i></span>
-                        <input type="text" required name="nombreU" autofocus autocomplete="off">
-                        <label>Usuario</label>
-                    </div>
-                    <div class="input-box">
-                        <span class="icon"><i class="bx bxs-lock-alt"></i></span>
-                        <input type="password" required name="contraseña">
-                        <label>Contraseña</label>
-                    </div>
-                    <div class="remember-password">
-                        <label><input type="checkbox">Recuerda</label>
-                        <a href="#">Olvidaste tu contraseña</a>
-                    </div>
-                    <button class="btn" type="submit">Ingresar</button>
-                    <div class="create-account">
-                        <p>¿Aún no tienes cuenta? <a href="#" class="register-link">Registrarse</a></p>
-                    </div>
-                </form>
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                <h2>Iniciar Sesión</h2>
+                <div class="input-box">
+                    <span class="icon"><i class="bx bxs-user-account"></i></span>
+                    <input type="text" required name="nombreU" autofocus autocomplete="off">
+                    <label>Usuario</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><i class="bx bxs-lock-alt"></i></span>
+                    <input type="password" required name="contraseña">
+                    <label>Contraseña</label>
+                </div>
+                <div class="remember-password">
+                    <label><input type="checkbox">Recuerda</label>
+                    <a href="#">Olvidaste tu contraseña</a>
+                </div>
+                <button class="btn" type="submit">Ingresar</button>
+                <div class="create-account">
+                    <p>¿Aún no tienes cuenta? <a href="#" class="register-link">Registrarse</a></p>
+                </div>
             </div>
             <div class="form-box register">
                 <form action="{{ url_for('usuarios.registraru') }}" method="POST">

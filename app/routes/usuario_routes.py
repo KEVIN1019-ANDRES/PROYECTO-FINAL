@@ -7,10 +7,6 @@ from app.admin.models.vehiculo import Vehiculo
 
 bp = Blueprint('usuarios', __name__)
 
-@bp.route('/admin/dashboard')
-def admin_view():
-    return render_template('admin/vista_Ad.html')
-
 
 @bp.route('/cliente/dashboard')
 @login_required
@@ -22,7 +18,7 @@ def cliente_dashboard():
 def admin_dashboard():
     current_app.logger.info("Accediendo al dashboard de administrador")
     try:
-        vehiculos = Vehiculo.getItems()
+        vehiculos = Vehiculo.query.all()
         current_app.logger.info(f"Número de vehículos encontrados: {len(vehiculos)}")
         for v in vehiculos[:5]:  # Muestra los primeros 5 vehículos
             current_app.logger.info(f"Vehículo: {v.marca} {v.modelo}")
@@ -57,44 +53,5 @@ def cambiar_rol(user_id, new_role):
     user.set_role(new_role)
     return jsonify({'success': True, 'message': f'Rol de {user.username} cambiado a {new_role}'})
 
-@bp.route('/registraru', methods=['GET', 'POST'])
-def registraru():
-    if request.method == 'POST':
-        nombre = request.form.get('nombre')
-        username = request.form.get('nombreU')
-        email = request.form.get('correo')
-        telefono = request.form.get('telefono')
-        direccion = request.form.get('direccion')
-        contraseña = request.form.get('contraseña')
-        confirmar_contraseña = request.form.get('confirmar_contraseña')
-        rol = request.form.get('rol')
-        
-        # Verificar si el usuario o email ya existen
-        user_exists = Usuario.query.filter_by(username=username).first()
-        email_exists = Usuario.query.filter_by(email=email).first()
-
-        if user_exists:
-            flash('El nombre de usuario ya está en uso.', 'danger')
-        elif email_exists:
-            flash('El correo electrónico ya está registrado.', 'danger')
-        elif contraseña != confirmar_contraseña:
-            flash('Las contraseñas no coinciden.', 'danger')
-        else:
-            # Crear nuevo usuario
-            new_user = Usuario(
-                nombre=nombre,
-                username=username,
-                email=email,
-                telefono=telefono,
-                direccion=direccion,
-                rol=rol
-            )
-            new_user.set_password(contraseña)
-            db.session.add(new_user)
-            db.session.commit()
-            flash('Registro exitoso. Ahora puedes iniciar sesión.', 'success')
-            return redirect(url_for('login.login'))  # Asegúrate de que 'login.login' es la ruta correcta
-
-    return render_template('login/index.html')  # Asumiendo que tu template de login se llama index.html
 
 # Archivo app/routes/usuario_routes.py
