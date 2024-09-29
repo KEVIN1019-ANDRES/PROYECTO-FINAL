@@ -24,9 +24,28 @@
             <input type="hidden" name="tipo" value="vehiculo">
             <label for="cantidad">Cantidad:</label>
             <input type="number" name="cantidad" id="cantidad" value="1" min="1">
-            <button type="submit" class="btn1">Agregar al carrito</button>
         </form>
 
         <a href="{{ url_for('vehiculo.index') }}" class="btn">Volver</a>
     </div>
+    <script>
+        function agregarAlCarrito(event, vehiculoId) {
+            event.preventDefault();
+            const form = event.target;
+            const cantidad = form.querySelector('input[name="cantidad"]').value;
+        
+            fetch(`/agregar-al-carrito/${vehiculoId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `cantidad=${cantidad}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                actualizarCantidadCarrito();
+            });
+        }
+        </script>
 {% endblock %}

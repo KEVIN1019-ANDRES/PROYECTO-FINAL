@@ -14,7 +14,13 @@ bp = Blueprint('usuarios', __name__)
 @bp.route('/cliente/dashboard')
 @login_required
 def cliente_dashboard():
-    return render_template('vista/Vista_Us.html')
+    try:
+        vehiculos = Vehiculo.query.all()
+        current_app.logger.info(f"Número de vehículos encontrados: {len(vehiculos)}")
+        return render_template('vista/Vista_Us.html', vehiculos=vehiculos)
+    except Exception as e:
+        current_app.logger.error(f"Error al obtener vehículos: {str(e)}")
+        return render_template('vista/Vista_Us.html', vehiculos=[])
 
 @bp.route('/admin/dashboard')
 @login_required
@@ -121,3 +127,24 @@ def calcular_total_factura(form):
     # Implementa la lógica para calcular el total de la factura
     # basándote en los datos del formulario
     return 0  # Placeholder
+
+
+@bp.route('/perfil')
+@login_required
+def perfil():
+    return render_template('vista/perfil.html')
+
+@bp.route('/direcciones')
+@login_required
+def direcciones():
+    return render_template('vista/direcciones.html')
+
+@bp.route('/pedidos')
+@login_required
+def pedidos():
+    return render_template('vista/pedidos.html')
+
+@bp.route('/favoritos')
+@login_required
+def favoritos():
+    return render_template('vista/favoritos.html')
