@@ -255,6 +255,7 @@ body{
 .create-account p a:hover{
     text-decoration: underline;
 }
+
 .flash-messages {
     position: fixed;
     top: 20px;
@@ -282,11 +283,6 @@ body{
 .alert-error {
     background-color: #f8d7da;
     color: #721c24;
-}
-
-.alert-info {
-    background-color: #d1ecf1;
-    color: #0c5460;
 }
 
 .alert-icon {

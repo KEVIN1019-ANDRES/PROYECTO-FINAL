@@ -12,6 +12,7 @@ class Vehiculo(db.Model):
     precio_anterior = db.Column(db.Integer, nullable=True)  # Precio anterior opcional
     cilindraje = db.Column(db.Integer, nullable=False)
     imagen = db.Column(db.String(100), nullable=True)
+    usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'))
 
     # Relación con Detalle
     detalles = db.relationship('Detalle', back_populates='vehiculo')

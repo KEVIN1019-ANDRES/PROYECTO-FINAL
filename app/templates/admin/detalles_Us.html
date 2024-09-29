@@ -1,0 +1,103 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Detalles del Usuario{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Detalles del Usuario</h1>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ usuario.nombre }}</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="card-text"><strong>Username:</strong> {{ usuario.username }}</p>
+                    <p class="card-text"><strong>Email:</strong> {{ usuario.email }}</p>
+                    <p class="card-text"><strong>Teléfono:</strong> {{ usuario.telefono }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p class="card-text"><strong>Dirección:</strong> {{ usuario.direccion or 'No disponible' }}</p>
+                    <p class="card-text"><strong>Rol:</strong> {{ usuario.rol }}</p>
+                    <p class="card-text"><strong>Fecha de registro:</strong> {{ usuario.fecha_registro.strftime('%Y-%m-%d %H:%M:%S') if usuario.fecha_registro else 'No disponible' }}</p>
+                </div>
+            </div>
+            
+            <h6 class="mt-4">Facturas</h6>
+            {% if facturas.items %}
+                <p>Número de facturas: {{ facturas.total }}</p>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha</th>
+                            <th>Total</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for factura in facturas.items %}
+                        <tr>
+                            <td>{{ factura.id }}</td>
+                            <td>{{ factura.fecha.strftime('%Y-%m-%d') if factura.fecha else 'No disponible' }}</td>
+                            <td>{{ factura.total|default('No disponible') }}</td>
+                            <td>
+                                <a href="{{ url_for('facturas.detalle_factura', id=factura.id) }}" class="btn btn-sm btn-info">Ver</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                
+                <!-- Paginación -->
+                <nav aria-label="Navegación de facturas">
+                    <ul class="pagination">
+                        {% for page in facturas.iter_pages() %}
+                            {% if page %}
+                                <li class="page-item {{ 'active' if page == facturas.page else '' }}">
+                                    <a class="page-link" href="{{ url_for('usuarios.detalles_Us', id=usuario.id, page=page) }}">{{ page }}</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled"><span class="page-link">...</span></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </nav>
+            {% else %}
+                <p>Este usuario no tiene facturas.</p>
+            {% endif %}
+
+            <div class="mt-4">
+                <a href="{{ url_for('usuarios.lista_usuarios') }}" class="btn btn-primary">Volver a la lista de usuarios</a>
+                {% if current_user.id != usuario.id %}
+                    <button class="btn btn-danger" onclick="eliminarUsuario('{{ usuario.id }}')">Eliminar Usuario</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function eliminarUsuario(userId) {
+    if (confirm('¿Estás seguro de que quieres eliminar este usuario? Esta acción no se puede deshacer.')) {
+        fetch(`/admin/eliminar-usuario/${userId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                window.location.href = "{{ url_for('usuarios.lista_usuarios') }}";
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Ocurrió un error al intentar eliminar el usuario.');
+        });
+    }
+}
+</script>
+{% endblock %}

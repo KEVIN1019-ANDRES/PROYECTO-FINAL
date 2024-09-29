@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "admin/base.html" %}
 
 {% block content %}
 <h1>Lista de Usuarios</h1>
@@ -8,6 +8,7 @@
             <th>Username</th>
             <th>Email</th>
             <th>Rol Actual</th>
+            <th>Última Conexión</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -17,12 +18,19 @@
             <td>{{ usuario.username }}</td>
             <td>{{ usuario.email }}</td>
             <td>{{ usuario.rol }}</td>
+            <td>{{ usuario.ultima_conexion|default('Nunca', true) }}</td>
             <td>
                 {% if usuario.id != current_user.id %}
-                <button onclick="cambiarRol({{ usuario.id }}, '{{ 'admin' if usuario.rol == 'cliente' else 'cliente' }}')">
+                <button onclick="cambiarRol('{{ usuario.id }}', '{{ 'admin' if usuario.rol == 'cliente' else 'cliente' }}')">
                     Cambiar a {{ 'Admin' if usuario.rol == 'cliente' else 'Cliente' }}
                 </button>
+                <form action="{{ url_for('usuarios.delete_Us', id=usuario.id) }}" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar este usuario?')">Eliminar</button>
+                </form>
                 {% endif %}
+                <form action="{{ url_for('usuarios.detalles_Us', id=usuario.id) }}" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-sm btn-danger"">Ver detalles</button>
+                </form>
             </td>
         </tr>
         {% endfor %}
@@ -45,6 +53,27 @@ function cambiarRol(userId, newRole) {
             }
         });
     }
+}
+
+function eliminarUsuario(userId) {
+    if (confirm('¿Estás seguro de que quieres eliminar este usuario? Esta acción no se puede deshacer.')) {
+        fetch(`/admin/eliminar-usuario/${userId}`, {
+            method: 'POST',
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                location.reload();
+            } else {
+                alert('Error: ' + data.message);
+            }
+        });
+    }
+}
+
+function verDetalles(userId) {
+    window.location.href = `/admin/detalles-usuario/${userId}`;
 }
 </script>
 {% endblock %}

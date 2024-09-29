@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_wtf import CSRFProtect
 from flask_login import LoginManager # Importar el modelo Usuario
 
 db = SQLAlchemy()  # Inicialización de SQLAlchemy
@@ -11,7 +12,7 @@ def formato_moneda(value):
     return f"${value:,.2f}"
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__)  # Asegúrate de tener una clave secreta
     app.config.from_object('config.Config')
     # Configurar filtros Jinja2
     app.jinja_env.filters['formato_moneda'] = formato_moneda
@@ -35,12 +36,11 @@ def create_app():
     app.register_blueprint(Vista_routes.bp)
     app.register_blueprint(login_routes.bp)
     
-    
-
     # Registrar blueprints del admin
-    from app.admin.routes import vehiculo_routes, producto_routes
-    app.register_blueprint(vehiculo_routes.bp)
+    from app.admin.routes import vehiculo_routes, producto_routes, admin_routes
+    app.register_blueprint(vehiculo_routes.bp, url_prefix='/admin/vehiculo')
     app.register_blueprint(producto_routes.bp)
+    app.register_blueprint(admin_routes.bp)
     
     login_manager.login_view = 'login.login'
 

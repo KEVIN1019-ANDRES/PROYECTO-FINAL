@@ -1,25 +1,39 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from app.models.usuario import Usuario
 from app import db
-from flask_login import login_user, login_required, logout_user# Asegúrate de importar el modelo Usuario
+from flask_login import login_user, login_required, logout_user, current_user# Asegúrate de importar el modelo Usuario
 from werkzeug.security import check_password_hash
-from app.forms.login_form import LoginForm
+
+
 
 # Cambiamos el nombre del blueprint a 'auth'
 bp = Blueprint('login', __name__)
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = Usuario.query.filter_by(email=form.email.data).first()
-        if user and check_password_hash(user.password, form.password.data):
+    if current_user.is_authenticated:
+        logout_user()
+        return redirect(url_for('login.login'))
+
+    if request.method == 'POST':
+        username = request.form.get('nombreU')
+        password = request.form.get('contraseña')
+        
+        user = Usuario.query.filter_by(username=username).first()
+        
+        if user and check_password_hash(user.password, password):
             login_user(user)
             flash('Has iniciado sesión correctamente', 'success')
-            return redirect(url_for('main.index'))  # o la ruta que uses para tu página principal
+            
+            # Redirige basado en el rol del usuario
+            if user.rol == 'admin':
+                return redirect(url_for('usuarios.admin_dashboard'))
+            else:
+                return redirect(url_for('usuarios.cliente_dashboard'))
         else:
-            flash('Email o contraseña incorrectos. Por favor, intenta de nuevo.', 'error')
-    return render_template('login/index.html', form=form)
+            flash('Usuario o contraseña incorrectos. Por favor, intenta de nuevo.', 'error')
+    
+    return render_template('login/index.html')
 
 
 @bp.route('/registraru', methods=['GET', 'POST'])
@@ -66,6 +80,5 @@ def registraru():
 @login_required
 def logout():
     logout_user()
-    flash('Has cerrado sesión', 'info')
     return redirect(url_for('login.login'))
 

@@ -1,7 +1,8 @@
 import os
 import re
-from flask import Blueprint, render_template, request, redirect, url_for, abort
+from flask import Blueprint, render_template, request, redirect, url_for, abort, flash
 from werkzeug.utils import secure_filename
+from flask import current_app, flash, redirect, url_for
 from flask import current_app as app
 from app.admin.models.vehiculo import Vehiculo
 from app import db
@@ -21,7 +22,7 @@ def is_valid_file(filename):
 @bp.route('/vehiculo/index')
 def index():
     data = Vehiculo.query.all()
-    return render_template('vehiculo/index.html', data=data)
+    return render_template('admin/vista_Ad.html', data=data)
 
 @bp.route('/vehiculo/add', methods=['GET', 'POST'])
 def add():
@@ -67,9 +68,9 @@ def add():
         db.session.add(new_vehiculo)
         db.session.commit()
 
-        return redirect(url_for('vehiculo.index'))
+        return redirect(url_for('admin.vista_Ad'))
 
-    return render_template('vehiculo/add.html')
+    return render_template('admin/add.html')
 
 
 @bp.route('/edit/<int:id>', methods=['GET', 'POST'])
@@ -115,13 +116,15 @@ def edit(id):
             abort(400, description="Tipo de archivo no permitido")
 
         db.session.commit()
-        return redirect(url_for('vehiculo.index'))
+        return redirect(url_for('admin.vista_Ad'))
 
     # Construir la URL de la i
-    return render_template('vehiculo/edit.html', vehiculo=vehiculo)
+    return render_template('admin/edit.html', vehiculo=vehiculo)
 
-@bp.route('/vehiculo/delete/<int:id>')
+
+@bp.route('/delete/<int:id>')
 def delete(id):
+    print(f"Intentando eliminar vehículo con ID: {id}")  # Log para depuración
     vehiculo = Vehiculo.query.get_or_404(id)
 
     # Obtener el nombre del archivo de la imagen
@@ -140,7 +143,7 @@ def delete(id):
         if os.path.isfile(imagen_path):
             os.remove(imagen_path)
     
-    return redirect(url_for('vehiculo.index'))
+    return redirect(url_for('admin.vista_Ad'))
 
 
 @bp.route('/<int:id>')
