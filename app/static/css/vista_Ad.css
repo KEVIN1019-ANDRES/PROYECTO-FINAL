@@ -2,10 +2,11 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: "blender-pro";
+
 }
 
-.container {
+.contai1ner {
     max-width: 90%;
     margin: auto;
 }
@@ -26,6 +27,7 @@
 header {
     position: absolute;
     top: 0;
+    font-family: "icons", serif !important;
     width: 100%;
     z-index: 10; /* Coloca el header encima del carrusel */
 }
@@ -48,11 +50,11 @@ header {
     text-decoration: none;
 }
 
-.navbar-brand img {
-    margin-right: 10px;
-    width: 90px; /* Ajusta el tamaño del logo */
-    height: 90px; /* Ajusta el tamaño del logo */
-}
+    .navbar-brand img {
+        margin-right: 10px;
+        width: 90px; /* Ajusta el tamaño del logo */
+        height: 90px; /* Ajusta el tamaño del logo */
+    }
 
 .navbar-brand span {
     font-size: 24px;

@@ -12,7 +12,6 @@ from flask_wtf.csrf import generate_csrf
 bp = Blueprint('usuarios', __name__)
 
 @bp.route('/cliente/dashboard')
-@login_required
 def cliente_dashboard():
     try:
         vehiculos = Vehiculo.query.all()
