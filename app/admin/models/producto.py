@@ -6,6 +6,7 @@ class Producto(db.Model):
     nombre = db.Column(db.String(255), nullable=False)
     precio = db.Column(db.Float, nullable=False)  # Cambiado a Float para manejar decimales
     stock = db.Column(db.Integer, nullable=False)
+    accesorios = db.Column(db.Integer, nullable=False)
     producto_imagen = db.Column(db.String(100), nullable=True)
 
     # Relación con Detalle

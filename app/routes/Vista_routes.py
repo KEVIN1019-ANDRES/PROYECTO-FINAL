@@ -1,27 +1,21 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, current_app
 from app.admin.models.vehiculo import Vehiculo
+from app.admin.models.CarruselSlide import CarruselSlide
+import os
 
 bp = Blueprint('vista', __name__)
 
 @bp.route('/')
-def index():
-    # Obtener el número de página, por defecto será la primera
-    page = request.args.get('page', 1, type=int)
-
-    # Obtener el término de búsqueda del usuario, si existe
-    search_query = request.args.get('search', '')
-    page = request.args.get('page', 1,  type=int)
-
-    # Filtrar vehículos basados en la consulta de búsqueda
-    if search_query:
-        vehiculos = Vehiculo.query.filter(
-            Vehiculo.marca.ilike(f'%{search_query}%') |
-            Vehiculo.modelo.ilike(f'%{search_query}%') |
-            Vehiculo.color.ilike(f'%{search_query}%')
-        ).paginate(page=page, per_page=10)
-    else:
-        vehiculos = Vehiculo.query.paginate(page=page, per_page=10)
-
-
-    # Renderizar la vista principal con los resultados paginados
-    return render_template('vista/vista_Us.html', vehiculos=vehiculos)
+def vista():
+    vehiculos = Vehiculo.query.all()
+    imagenes_c = CarruselSlide.query.order_by(CarruselSlide.orden).all()
+    print(f"Número de imágenes en el carrusel: {len(imagenes_c)}")
+    for imagen in imagenes_c:
+        imagen_path = os.path.join(current_app.root_path, 'static', 'img', 'carrusel', imagen.imagen_nombre)
+        print(f"Ruta completa de la imagen: {imagen_path}")
+        print(f"Imagen: {imagen.imagen_nombre}, Título: {imagen.titulo}, Ruta: {imagen.ruta}")
+        if os.path.exists(imagen_path):
+            print(f"Imagen encontrada: {imagen_path}")
+        else:
+            print(f"Imagen no encontrada: {imagen_path}")
+    return render_template('vista/vista_Us.html', vehiculos=vehiculos, imagenes_c=imagenes_c)

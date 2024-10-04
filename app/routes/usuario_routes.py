@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, current_app
 from flask_login import login_required, current_user
+from app.admin.models.CarruselSlide import CarruselSlide
 from app.admin.models.vehiculo import Vehiculo
 from app.models.usuario import Usuario
 from app.models.factura import Factura
@@ -16,10 +17,12 @@ def cliente_dashboard():
     try:
         vehiculos = Vehiculo.query.all()
         current_app.logger.info(f"Número de vehículos encontrados: {len(vehiculos)}")
-        return render_template('vista/Vista_Us.html', vehiculos=vehiculos)
+        imagenes_c = CarruselSlide.query.order_by(CarruselSlide.orden).all()
+        print(f"Número de imágenes en el carrusel: {len(imagenes_c)}")
+        return render_template('vista/Vista_Us.html', vehiculos=vehiculos, imagenes_c=imagenes_c)
     except Exception as e:
         current_app.logger.error(f"Error al obtener vehículos: {str(e)}")
-        return render_template('vista/Vista_Us.html', vehiculos=[])
+        return render_template('vista/Vista_Us.html', vehiculos=[], imagenes_c=[])
 
 @bp.route('/admin/dashboard')
 @login_required
@@ -31,7 +34,9 @@ def admin_dashboard():
     try:
         vehiculos = Vehiculo.query.all()
         current_app.logger.info(f"Número de vehículos encontrados: {len(vehiculos)}")
-        return render_template('admin/vista_Ad.html', vehiculos=vehiculos)
+        imagenes_c = CarruselSlide.query.order_by(CarruselSlide.orden).all()
+        print(f"Número de imágenes en el carrusel: {len(imagenes_c)}")
+        return render_template('admin/vista_Ad.html', vehiculos=vehiculos, imagenes_c=imagenes_c)
     except Exception as e:
         current_app.logger.error(f"Error al obtener vehículos: {str(e)}")
         flash('Hubo un error al cargar los vehículos', 'error')
@@ -46,7 +51,7 @@ def lista_usuarios():
     usuarios = Usuario.query.all()
     csrf_token = secrets.token_hex(16)
     session['csrf_token'] = csrf_token
-    return render_template('admin/lista_usuarios.html', usuarios=usuarios, csrf_token=csrf_token)
+    return render_template('admin/usuarios/lista_usuarios.html', usuarios=usuarios, csrf_token=csrf_token)
 
 @bp.route('/admin/cambiar-rol/<int:user_id>/<string:new_role>', methods=['POST'])
 @login_required
@@ -116,7 +121,7 @@ def detalles_Us(id):
     page = request.args.get('page', 1, type=int)
     facturas = usuario.facturas.order_by(Factura.fecha.desc()).paginate(page=page, per_page=10)
     
-    return render_template('admin/detalles_Us.html', 
+    return render_template('admin/usuarios/detalles_Us.html', 
                            usuario=usuario, 
                            form=form, 
                            facturas=facturas,
@@ -126,24 +131,3 @@ def calcular_total_factura(form):
     # Implementa la lógica para calcular el total de la factura
     # basándote en los datos del formulario
     return 0  # Placeholder
-
-
-@bp.route('/perfil')
-@login_required
-def perfil():
-    return render_template('vista/perfil.html')
-
-@bp.route('/direcciones')
-@login_required
-def direcciones():
-    return render_template('vista/direcciones.html')
-
-@bp.route('/pedidos')
-@login_required
-def pedidos():
-    return render_template('vista/pedidos.html')
-
-@bp.route('/favoritos')
-@login_required
-def favoritos():
-    return render_template('vista/favoritos.html')

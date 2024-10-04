@@ -13,11 +13,20 @@ document.addEventListener('DOMContentLoaded', function() {
         let elements = parentTarget.getElementsByTagName('li');
         let curElement, siguienteElement;
 
+        if (elements.length === 0) {
+            console.log("No hay elementos en el slider");
+            return;  // Salir de la función si no hay elementos
+        }
+
         for (let i = 0; i < elements.length; i++) {
             if (elements[i].style.opacity == 1) {
                 curElement = i;
                 break;
             }
+        }
+
+        if (curElement === undefined) {
+            curElement = 0;  // Si no se encontró un elemento activo, comenzar desde el primero
         }
 
         if (side == 'anterior' || side == 'siguiente') {
@@ -30,9 +39,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // PUNTOS INFERIORES
-        let elementSel = document.getElementsByClassName("listslider")[0].getElementsByTagName("a");
-        elementSel[curElement].classList.remove("item-select-slid");
-        elementSel[siguienteElement].classList.add("item-select-slid");
+        let elementSelList = document.getElementsByClassName("listslider");
+        if (elementSelList.length > 0) {
+            let elementSel = elementSelList[0].getElementsByTagName("a");
+            if (elementSel.length > curElement) {
+                elementSel[curElement].classList.remove("item-select-slid");
+            }
+            if (elementSel.length > siguienteElement) {
+                elementSel[siguienteElement].classList.add("item-select-slid");
+            }
+        }
+
         elements[curElement].style.opacity = 0;
         elements[curElement].style.zIndex = 0;
         elements[siguienteElement].style.opacity = 1;
@@ -95,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setInterval(() => funcionEjecutar("siguiente"), 5000);
     }
 
-    // Configuración de la lista del slider
+    // Configuración de la lista del slider y carga de imágenes
     if (document.querySelector('.listslider')) {
         let links = document.querySelectorAll(".listslider li a");
         links.forEach(function(link) {
@@ -105,6 +122,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 let arrItem = item.split("_");
                 funcionEjecutar(arrItem[1]);
             });
+        });
+
+        // Cargar imágenes del carrusel
+        let sliderItems = document.querySelectorAll("#slider li");
+        sliderItems.forEach(function(item) {
+            let imgUrl = item.getAttribute('data-background');
+            if (imgUrl) {
+                item.style.backgroundImage = `url('${imgUrl}')`;
+            }
         });
     }
 
@@ -126,4 +152,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Actualizar en scroll
     window.addEventListener('scroll', updateHeaderStyle);
+
+    function inicializarCarrusel() {
+        let slider = document.getElementById('slider');
+        if (slider && slider.children.length > 0) {
+            // Oculta todos los elementos
+            for (let i = 0; i < slider.children.length; i++) {
+                slider.children[i].style.opacity = 0;
+                slider.children[i].style.zIndex = 0;
+            }
+            // Muestra el primer elemento
+            slider.children[0].style.opacity = 1;
+            slider.children[0].style.zIndex = 1;
+
+            let listslider = document.querySelector('.listslider');
+            if (listslider && listslider.children.length > 0) {
+                listslider.children[0].querySelector('a').classList.add('item-select-slid');
+            }
+
+            // Inicia el carrusel automático
+            setInterval(() => funcionEjecutar("siguiente"), 5000);
+        }
+    }
+
+    // Llama a la función de inicialización
+    inicializarCarrusel();
 });

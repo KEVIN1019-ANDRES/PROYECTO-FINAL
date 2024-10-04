@@ -24,4 +24,4 @@ def index(id):
 
 
     # Renderizar la vista principal con los resultados paginados
-    return render_template('vista/index.html', vehiculos=vehiculos)
+    return render_template('vista/vista_Us', vehiculos=vehiculos)

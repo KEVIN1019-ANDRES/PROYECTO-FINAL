@@ -2,7 +2,7 @@ import os
 import re
 from flask import Blueprint, render_template, request, redirect, url_for, abort, flash
 from werkzeug.utils import secure_filename
-from flask import current_app, flash, redirect, url_for
+from flask import redirect, url_for
 from flask import current_app as app
 from app.admin.models.vehiculo import Vehiculo
 from app import db
@@ -70,7 +70,7 @@ def add():
 
         return redirect(url_for('admin.vista_Ad'))
 
-    return render_template('admin/add.html')
+    return render_template('admin/vehiculos/add.html')
 
 
 @bp.route('/edit/<int:id>', methods=['GET', 'POST'])

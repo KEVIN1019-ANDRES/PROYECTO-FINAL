@@ -1,19 +1,61 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>VTR Vehículos</title>
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/vista_Us.css') }}">
-        <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VTR Vehículos</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/vista_Us.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var myCarousel = document.querySelector('#carouselExampleIndicators');
+            var carousel = new bootstrap.Carousel(myCarousel, {
+                interval: 3000,
+                ride: 'carousel',
+                wrap: true
+            });
+            
+            myCarousel.addEventListener('mouseenter', function () {
+                carousel.pause();
+            });
+            
+            myCarousel.addEventListener('mouseleave', function () {
+                carousel.cycle();
+            });
+            
+            myCarousel.addEventListener('slid.bs.carousel', function (event) {
+                console.log('Se movió al slide:', event.to);
+            });      
+        });
 
-    </head>
+        function confirmarCierreSesion(event) {
+            event.preventDefault();
+            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+                window.location.href = "{{ url_for('login.logout') }}";
+            }
+        }
+
+        $(document).ready(function() {
+            $('.user-icon').click(function(e) {
+                e.preventDefault();
+                $('.user-dropdown').toggleClass('show');
+            });
+
+            $(document).click(function(e) {
+                if (!$(e.target).closest('.user-icon, .user-dropdown').length) {
+                    $('.user-dropdown').removeClass('show');
+                }
+            });
+        });
+    </script>  
+</head>
 <body>
-    <header class="header header-transparent"" >
+    <header class="header header-transparent">
         <nav class="navbar">
             <div class="brand">
                 <div class="logo-container">
@@ -41,7 +83,7 @@
             <div class="nav-actions">
                 <form class="search-form">
                     <input type="search" placeholder="Buscar" aria-label="Buscar">
-                    <button type="submit"><i class='bx bx-search-alt-2' ></i></button>
+                    <button type="submit"><i class='bx bx-search-alt-2'></i></button>
                 </form>
                 <a href="/rastreo" class="icon-btn" title="Rastrear pedido"><i class='bx bxs-truck'></i></a>
                 <div class="user-dropdown">
@@ -59,109 +101,61 @@
                         {% endif %}
                     </ul>
                 </div>
-                <a href="/favoritos" class="icon-btn" title="Favoritos"><i class='bx bx-heart' ></i></a>
+                <a href="/favoritos" class="icon-btn" title="Favoritos"><i class='bx bx-heart'></i></a>
                 <a href="/carrito" class="icon-btn" title="Carrito"><i class='bx bx-cart'></i></a>
             </div>
         </nav>
     </header>
+
     <!-- Carrusel -->
     <section id="container-slider">    
-        <a href="javascript: funcionEjecutar('anterior');" class="arrowPrev"><i class="fas fa-chevron-circle-left"></i></a>
-        <a href="javascript: funcionEjecutar('siguiente');" class="arrowNext"><i class="fas fa-chevron-circle-right"></i></a>
-        <ul class="listslider">
-            <li><a itlist="itList_0" href="#" class="item-select-slid"></a></li>
-            <li><a itlist="itList_1" href="#"></a></li>
-            <li><a itlist="itList_2" href="#"></a></li>
-            <li><a itlist="itList_3" href="#"></a></li>
-            <li><a itlist="itList_4" href="#"></a></li>
-            <li><a itlist="itList_5" href="#"></a></li>
-            <li><a itlist="itList_6" href="#"></a></li>
-        </ul>
-        <ul id="slider">
-            <li style="background-image: url('{{ url_for('static', filename='img/Inicio/PHO_STAGE_200-duke-21-header_#SALL_#AEPI_#V1.jpg') }}'); z-index:0; opacity: 1;">
-                <div class="content_slider">
-                    <div>
-                        <h2>Nuevo Modelo Deportivo</h2>
-                        <p>Descubre la potencia y el estilo de <br>
-                            nuestro último modelo deportivo.</p>
-                    </div>
+    <a href="javascript: funcionEjecutar('anterior');" class="arrowPrev"><i class="fas fa-chevron-circle-left"></i></a>
+    <a href="javascript: funcionEjecutar('siguiente');" class="arrowNext"><i class="fas fa-chevron-circle-right"></i></a>
+    <ul class="listslider">
+        {% for i in range(imagenes_c|length) %}
+        <li><a itlist="itList_{{ i }}" href="#{{ i + 1 }}"></a></li>
+        {% endfor %}
+    </ul>
+    <ul id="slider">
+        {% for imagen in imagenes_c %}
+        <li style="background-image: url('{{ url_for('static', filename='img/carrusel/' + imagen.imagen_nombre) }}');">
+            <div class="content_slider">
+                <div>
+                    <h2>{{ imagen.titulo }}</h2>
+                    <p>{{ imagen.descripcion }}</p>
+                    {% if imagen.ruta %}
+                    <a href="{{ imagen.ruta }}" class="btnSlider">Ver más</a>
+                    {% endif %}
                 </div>
-            </li>
-            <li style="background-image: url('{{ url_for('static', filename='img/Inicio/MY25-KTM-300-EXC-ACTION-EXC-Range-1_XLarge.jpeg') }}');">
-                <div class="content_slider">
-                    <div>
-                        <h2>Elegancia y Confort</h2>
-                        <p>Experimenta el lujo y la comodidad en <br>
-                        nuestros vehículos de alta gama.</p>
-                    </div>
-                </div>
-            </li>
-            <li style="background-image: url('{{ url_for('static', filename='img/Inicio/MY25-KTM-85-SX-STAGE-FULL-21_XLarge.jpeg') }}');">
-                <div class="content_slider">
-                    <div>
-                        <h2>Innovación Tecnológica</h2>
-                        <p>Conoce las últimas innovaciones en <br>
-                            tecnología automotriz en nuestros modelos.</p>
-                    </div>
-                </div>
-            </li>
-            <li style="background-image: url('{{ url_for('static', filename='img/Inicio/MotoGP-EnduroGP-Website-Hero-Banner-1_XLarge.jpeg') }}');">
-                <div class="content_slider">
-                    <div>
-                        <h2>Velocidad y Adrenalina</h2>
-                        <p>Siente la emoción de nuestras <br>
-                            motocicletas deportivas de alto rendimiento.</p>
-                    </div>
-                </div>
-            </li>
-            <li style="background-image: url('{{ url_for('static', filename='img/Inicio/Banners_TTDS200_GENERAL.jpg.webp') }}');">
-                <div class="content_slider">
-                    <div>
-                        <h2>Espacio y Seguridad</h2>
-                        <p>Descubre nuestros vehículos familiares, <br>
-                            diseñados para tu comodidad y protección.</p>
-                    </div>
-                </div>
-            </li>
-            <li style="background-image: url('{{ url_for('static', filename='img/Inicio/Banners_General_TTR125_2_General_.jpg.webp') }}');">
-                <div class="content_slider">
-                    <div>
-                        <h2>Movilidad Sostenible</h2>
-                        <p>Explora nuestra gama de vehículos eléctricos, <br>
-                            el futuro de la conducción responsable.</p>
-                    </div>
-                </div>
-            </li>
-            <li style="background-image: url('{{ url_for('static', filename='img/Inicio/Banners_CR4_150_General_.jpg.webp') }}');">
-                <div class="content_slider">
-                    <div>
-                        <h2>Aventura Sin Límites</h2>
-                        <p>Conquista cualquier terreno con nuestros <br>
-                            vehículos todoterreno de alta resistencia.</p>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </section>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
 
-     <!--Section de productos-->
-    <section class="productos">
+    <!-- Sección de productos -->
+    <section class="productos" id="product">
         <div class="container">
             <h2 class="section-title">Nuestros Vehículos</h2>
-            <div class="product-grid">
+            <div class="row">
                 {% if vehiculos %}
                     {% for vehiculo in vehiculos %}
-                        <div class="product-card">
-                            <img src="{{ url_for('static', filename='img/vehiculos/' ~ vehiculo.marca ~ '/' ~ vehiculo.imagen) }}" alt="{{ vehiculo.modelo }}">
-                            <div class="product-info">
-                                <h3 class="product-brand">{{ vehiculo.marca }}</h3>
-                                <h4 class="product-model">{{ vehiculo.modelo }}</h4>
-                                <p class="product-year">{{ vehiculo.año }}</p>
-                                <div class="product-price">
-                                    {% if vehiculo.precio_anterior != 0 %}
-                                        <span class="price-old">{{ vehiculo.precio_anterior|formato_moneda }}</span>
-                                    {% endif %}
-                                    <span class="price-current">{{ vehiculo.precio|formato_moneda }}</span>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                {% if vehiculo.imagen %}
+                                    <a href="{{ url_for('caracteristicas.index', id=vehiculo.id) }}">
+                                        <img src="{{ url_for('static', filename='img/vehiculos/' ~ vehiculo.marca ~ '/' ~ vehiculo.imagen) }}" class="card-img-top" alt="{{ vehiculo.modelo }}">
+                                    </a>
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ vehiculo.marca }} {{ vehiculo.modelo }}</h5>
+                                    <p class="card-text">{{ vehiculo.año }}</p>
+                                    <div class="price-wrapper">
+                                        {% if vehiculo.precio_anterior != 0 %}
+                                            <span class="price-old">{{ vehiculo.precio_anterior|formato_moneda }}</span>
+                                        {% endif %}
+                                        <span class="price-current">{{ vehiculo.precio|formato_moneda }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -169,6 +163,40 @@
                 {% else %}
                     <p class="no-products">No hay vehículos disponibles en este momento.</p>
                 {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de marcas -->
+    <section class="marcas">
+        <div class="container">
+            <h2 class="section-title">Nuestras Marcas</h2>
+            <div class="brand-carousel">
+                <div class="brand-item">
+                    <a href="https://moto100.com.co/marca/benelli">
+                        <img src="{{ url_for('static', filename='img/benelli.webp') }}" alt="Benelli">
+                    </a>
+                </div>
+                <div class="brand-item">
+                    <a href="https://moto100.com.co/marca/ktm">
+                        <img src="{{ url_for('static', filename='img/ktm.webp') }}" alt="KTM">
+                    </a>
+                </div>
+                <div class="brand-item">
+                    <a href="https://moto100.com.co/marca/kawasaki">
+                        <img src="{{ url_for('static', filename='img/kawasaki.webp') }}" alt="Kawasaki">
+                    </a>
+                </div>
+                <div class="brand-item">
+                    <a href="https://moto100.com.co/marca/akt">
+                        <img src="{{ url_for('static', filename='img/akt.webp') }}" alt="AKT">
+                    </a>
+                </div>
+                <div class="brand-item">
+                    <a href="https://moto100.com.co/marca/ducati">
+                        <img src="{{ url_for('static', filename='img/ducati.webp') }}" alt="Ducati">
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -192,8 +220,8 @@
                     <h3>Síguenos</h3>
                     <div class="social-icons">
                         <a href="#"><i class='bx bxl-facebook-circle'></i></a>
-                        <a href="#"><i class='bx bxl-twitter' ></i></a>
-                        <a href="#"><i class='bx bxl-instagram' ></i></a>
+                        <a href="#"><i class='bx bxl-twitter'></i></a>
+                        <a href="#"><i class='bx bxl-instagram'></i></a>
                     </div>
                 </div>
             </div>
@@ -202,6 +230,6 @@
             </div>
         </div>
     </footer>
-    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/vista_Us.js') }}"></script>
 </body>
 </html>

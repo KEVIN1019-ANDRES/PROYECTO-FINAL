@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Carrusel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/vista_Ad.css') }}">
+</head>
+<body>
+    <header>
+        <!-- Aquí puedes incluir el encabezado si es necesario -->
+    </header>
+
+    <main class="container">
+        <h1>Editar Carrusel</h1>
+        
+        <form action="{{ url_for('admin.editar_carrusel') }}" method="POST">
+            {% for imagen in imagenes %}
+            <div class="imagen-carrusel">
+                <img src="{{ url_for('static', filename=imagen.ruta) }}" alt="Imagen del carrusel" width="200">
+                
+                <div class="form-group">
+                    <label for="orden_{{ imagen.id }}">Orden:</label>
+                    <input type="number" id="orden_{{ imagen.id }}" name="orden_{{ imagen.id }}" value="{{ imagen.orden }}" min="1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="titulo_{{ imagen.id }}">Título:</label>
+                    <input type="text" id="titulo_{{ imagen.id }}" name="titulo_{{ imagen.id }}" value="{{ imagen.titulo }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="descripcion_{{ imagen.id }}">Descripción:</label>
+                    <textarea id="descripcion_{{ imagen.id }}" name="descripcion_{{ imagen.id }}" rows="3" required>{{ imagen.descripcion }}</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="activa_{{ imagen.id }}">Activa:</label>
+                    <input type="checkbox" id="activa_{{ imagen.id }}" name="activa_{{ imagen.id }}" {% if imagen.activa %}checked{% endif %}>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <!-- Aquí puedes incluir el pie de página si es necesario -->
+    </footer>
+</body>
+</html>

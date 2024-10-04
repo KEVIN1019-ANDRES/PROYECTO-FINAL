@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}VTR Admin{% endblock %}</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/vista_Ad.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="header header-transparent">
+        <nav class="navbar">
+         
+            <ul class="nav-menu">
+                <li><a href="{{ url_for('admin.vista_Ad') }}" class="nav-item">Inicio</a></li>
+                <li><a href="{{ url_for('admin.agregar_carrusel') }}" class="nav-item">Agregar Carrusel</a></li>
+                <!-- Agrega más elementos de menú según sea necesario -->
+            </ul>
+            
+            <div class="nav-actions">
+                <!-- Agrega aquí los iconos de acción del administrador -->
+                <a href="{{ url_for('login.logout') }}" class="icon-btn" title="Cerrar sesión"><i class='bx bx-log-out'></i></a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 VTR Admin. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
