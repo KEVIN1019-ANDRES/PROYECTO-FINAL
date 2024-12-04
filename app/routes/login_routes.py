@@ -11,10 +11,6 @@ bp = Blueprint('login', __name__)
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
-    if current_user.is_authenticated:
-        logout_user()
-        return redirect(url_for('login.login'))
-
     if request.method == 'POST':
         username = request.form.get('nombreU')
         password = request.form.get('contraseña')
@@ -24,12 +20,11 @@ def login():
         if user and check_password_hash(user.password, password):
             login_user(user)
             flash('Has iniciado sesión correctamente', 'success')
-            
             # Redirige basado en el rol del usuario
             if user.rol == 'admin':
                 return redirect(url_for('usuarios.admin_dashboard'))
             else:
-                return redirect(url_for('usuarios.cliente_dashboard'))
+                return redirect(url_for('vista.vista'))
         else:
             flash('Usuario o contraseña incorrectos. Por favor, intenta de nuevo.', 'error')
     
@@ -76,9 +71,11 @@ def registraru():
             return redirect(url_for('login.login'))  # Asegúrate de que 'login.login' es la ruta correcta
 
     return render_template('login/index.html')  # Asumiendo que tu template de login se llama index.html
+
+
 @bp.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('login.login'))
-
+    flash('Sesión cerrada exitosamente.', 'success')  # Mensaje de éxito
+    return redirect(url_for('vista.vista'))  # Redirige a la página de vista de Us

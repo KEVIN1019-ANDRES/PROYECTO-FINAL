@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Actualizar en scroll
     window.addEventListener('scroll', updateHeaderStyle);
 
-    function inicializarCarrusel() {
+    function inicializarCarrusel(categoria) {
         let slider = document.getElementById('slider');
         if (slider && slider.children.length > 0) {
             // Oculta todos los elementos
@@ -165,57 +165,11 @@ document.addEventListener('DOMContentLoaded', function() {
             slider.children[0].style.opacity = 1;
             slider.children[0].style.zIndex = 1;
 
-            let listslider = document.querySelector('.listslider');
-            if (listslider && listslider.children.length > 0) {
-                listslider.children[0].querySelector('a').classList.add('item-select-slid');
-            }
-
             // Inicia el carrusel automático
             setInterval(() => funcionEjecutar("siguiente"), 5000);
         }
     }
 
     // Llama a la función de inicialización
-    inicializarCarrusel();
-
-    function setCookie(name, value, days) {
-        const expires = new Date(Date.now() + days * 864e5).toUTCString();
-        document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/';
-    }
-
-    function getCookie(name) {
-        return document.cookie.split('; ').reduce((r, v) => {
-            const parts = v.split('=');
-            return parts[0] === name ? decodeURIComponent(parts[1]) : r;
-        }, '');
-    }
-
-    $(document).ready(function() {
-        // Verificar si hay una sesión activa en sessionStorage
-        if (sessionStorage.getItem('sessionActive') === 'true') {
-            // Si hay una sesión activa, redirigir o mostrar un mensaje
-            alert('Ya tienes una sesión activa en esta pestaña.');
-        }
-
-        $('.user-icon').click(function(e) {
-            e.preventDefault();
-            $('.user-dropdown').toggleClass('show');
-        });
-
-        $(document).click(function(e) {
-            if (!$(e.target).closest('.user-icon, .user-dropdown').length) {
-                $('.user-dropdown').removeClass('show');
-            }
-        });
-
-        // Al iniciar sesión, establecer el estado en sessionStorage
-        $('#loginForm').on('submit', function() {
-            sessionStorage.setItem('sessionActive', 'true');
-        });
-
-        // Al cerrar sesión, eliminar el estado de sessionStorage
-        $('#logoutButton').on('click', function() {
-            sessionStorage.removeItem('sessionActive');
-        });
-    });
+    inicializarCarrusel('{{ categoria }}');
 });

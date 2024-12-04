@@ -228,7 +228,6 @@ body {
     color: var(--primary-color);
     font-size: 1.5rem;
     margin-left: 1rem;
-    margin-right: 1rem;
     text-decoration: none;
     transition: color 0.3s ease;
 
@@ -250,9 +249,7 @@ body {
 
 /* Estilos para el slider */
 #container-slider {
-    position: relative;
-    display: block;
-    width: 100%;
+height: 60vh;
 }
 
 #slider {
@@ -265,7 +262,7 @@ body {
 
 #slider li {
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     position: absolute !important;
     top: 0 !important;
@@ -344,8 +341,9 @@ body {
 
 .listslider {
     position: absolute;
-    right: 50px;
+    left: 50%;
     bottom: 20px;
+    transform: translateX(-50%);
     display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flex;
@@ -357,23 +355,23 @@ body {
 }
 
 .listslider li {
-    border-radius: 50%;
-    width: 10px;
-    height: 10px;
+    width: 20px;
+    height: 3px;
     cursor: pointer;
     margin: 0 5px;
 }
 
 .listslider li a {
     background: #CCC;
-    border-radius: 50%;
     width: 100%;
     height: 100%;
     display: block;
+    transition: all 0.3s ease;
 }
 
 .item-select-slid {
-    background: #FFF  !important;
+    background: #FFF !important;
+    width: 30px !important;
 }
 
 /* Estilos para la sección de productos */
@@ -687,7 +685,7 @@ body {
 
     .search-form {
         width: 100%;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
     }
 
     .product-grid {
