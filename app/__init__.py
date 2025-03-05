@@ -24,7 +24,7 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         from app.models.usuario import Usuario
-        return Usuario.query.get(int(user_id))
+        return Usuario.query.get(int(user_id))  # Asegúrate de que 'Usuario' sea tu modelo de usuario
 
     # Importar y registrar blueprints
     from app.routes import login_routes, compra, caracteristica_routes, Carrito_routes, factura_routes, usuario_routes, Vista_routes

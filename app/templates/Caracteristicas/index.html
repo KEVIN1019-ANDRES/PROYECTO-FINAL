@@ -4,29 +4,30 @@
 
 {% block content %}
     <div class="vehicle-detail">
-        <!-- Asegúrate de que el nombre del archivo y la carpeta estén correctos -->
-        <img src="{{ url_for('static', filename='img/vehiculos/' ~ vehiculo.marca|upper ~ '/' ~ vehiculo.imagen) }}" alt="{{ vehiculo.marca }} {{ vehiculo.modelo }}" style="max-width: 100%; height: auto; width: 300px;">
+        <img src="{{ url_for('static', filename='img/vehiculos/' ~ vehiculo.marca|upper ~ '/' ~ vehiculo.imagen) }}" alt="{{ vehiculo.marca }} {{ vehiculo.modelo }}" class="vehicle-image">
 
-        <h1>{{ vehiculo.marca }} {{ vehiculo.modelo }}</h1>
-        <p>{{ vehiculo.descripcion }}</p>
-        <ul>
+        <h1 class="vehicle-title">{{ vehiculo.marca }} {{ vehiculo.modelo }}</h1>
+        <p class="vehicle-description">{{ vehiculo.descripcion }}</p>
+        <ul class="vehicle-specs">
             <li><strong>Color:</strong> {{ vehiculo.color }}</li>
             <li><strong>Año:</strong> {{ vehiculo.año }}</li>
             <li><strong>Cilindraje:</strong> {{ vehiculo.cilindraje }} cc</li>
             <li><strong>Precio:</strong> {{ vehiculo.precio|formato_moneda }}</li>
             {% if vehiculo.precio_anterior != 0 %}
-                <li><strong class="a2">Precio Anterior:</strong> {{ vehiculo.precio_anterior|formato_moneda }}</li>
+                <li><strong class="previous-price">Precio Anterior:</strong> {{ vehiculo.precio_anterior|formato_moneda }}</li>
             {% endif %}
         </ul>
-        
 
-        <form action="{{ url_for('carritos.agregar_al_carrito', id=vehiculo.id) }}" method="POST">
+        <form action="{{ url_for('carritos.agregar_carrito') }}" method="POST" class="add-to-cart-form" onsubmit="agregarAlCarrito(event, {{ vehiculo.id }})">
             <input type="hidden" name="tipo" value="vehiculo">
             <label for="cantidad">Cantidad:</label>
             <input type="number" name="cantidad" id="cantidad" value="1" min="1">
+            <button type="submit" class="btn add-to-cart-btn">
+                <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+            </button>
         </form>
 
-        <a href="{{ url_for('vehiculo.index') }}" class="btn">Volver</a>
+        <a href="{{ url_for('vista.vista') }}" class="btn">Volver</a>
     </div>
     <script>
         function agregarAlCarrito(event, vehiculoId) {
@@ -47,5 +48,5 @@
                 actualizarCantidadCarrito();
             });
         }
-        </script>
+    </script>
 {% endblock %}

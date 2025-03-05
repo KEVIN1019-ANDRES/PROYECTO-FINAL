@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VTR Vehículos</title>
+    <title>VTR Productos</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/vista_Us.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
@@ -66,8 +66,13 @@
             
             <ul class="nav-menu">
                 <li><a href="/" class="nav-item">Inicio</a></li>
-                <li><a href="#vehiculos" class="nav-item">Vehículos</a></li>
-                <li><a href="{{ url_for('vista.Accesorios') }}" class="nav-item">Productos</a></li>
+                <li><a href="#href="/"" class="nav-item">Vehículos</a></li>
+                <li>
+                    <a href="/accesorios" class="nav-item">Accesorios</a>
+                    <ul>
+                        
+                    </ul>
+                </li>  
                 <li class="dropdown">
                     <a href="/servicios" class="nav-item">Servicios <i class='bx bxs-chevron-down'></i></a>
                     <ul class="dropdown-menu">
@@ -93,7 +98,8 @@
                             <li><a href="/cuenta/perfil">Perfil</a></li>
                             <li><a href="/cuenta/direcciones">Mis direcciones</a></li>
                             <li><a href="/cuenta/pedidos">Mis pedidos</a></li>
-                            <li><a href="{{ url_for('login.logout') }}">Cerrar sesión</a></li>
+                            <hr>
+                            <li><a href="{{ url_for('vista.vista') }}">Cerrar sesión</a></li>
                         {% else %}
                             <li><a href="{{ url_for('login.login') }}">Iniciar sesión</a></li>
                             <li><a href="{{ url_for('login.registraru') }}">Registrarse</a></li>
@@ -101,14 +107,13 @@
                     </ul>
                 </div>
                 <a href="/favoritos" class="icon-btn" title="Favoritos"><i class='bx bx-heart'></i></a>
-                <a href=" " class="icon-btn" title="Carrito"><i class='bx bx-cart'></i></a>
+                <a href="/carrito" class="icon-btn" title="Carrito"><i class='bx bx-cart'></i></a>
             </div>
         </nav>
     </header>
 
     <!-- Carrusel -->
     <section id="container-slider">    
-        
     <a href="javascript: funcionEjecutar('anterior');" class="arrowPrev"><i class="fas fa-chevron-circle-left"></i></a>
     <a href="javascript: funcionEjecutar('siguiente');" class="arrowNext"><i class="fas fa-chevron-circle-right"></i></a>
     <ul class="listslider">
@@ -118,7 +123,7 @@
     </ul>
     <ul id="slider">
         {% for imagen in imagenes_c %}
-        <li style="background-image: url('{{ url_for('static', filename='img/carrucel/vehiculos/' + imagen.imagen_nombre) }}');">
+        <li style="background-image: url('{{ url_for('static', filename='img/carrucel/productos/' + imagen.imagen_nombre) }}');">
             <div class="content_slider">
                 <div>
                     <h2>{{ imagen.titulo }}</h2>
@@ -129,16 +134,15 @@
                 </div>
             </div>
         </li>
-        {% endfor %}
+        {% endfor %}    
     </ul>
 </section>
-
     <!-- Sección de productos -->
     <section class="productos" id="vehiculos">
         <div class="container">
-            <h2 class="section-title">Nuestros Vehículos</h2>
+            <h2 class="section-ti   tle">Nuestros Productos</h2>
             <div class="row">
-                {% if vehiculos %}
+                {% if producto %}
                     {% for vehiculo in vehiculos %}
                         <div class="col-md-4 mb-4">
                             <div class="card h-100">
@@ -168,7 +172,7 @@
     </section>
 
     <section >
-        <h2 class="section-title">Catálogo de Vehículos</h2>
+        <h2 class="section-title">Catálogo de Productos</h2>
         <div class="product-grid">
             {% for vehiculo in vehiculos %}
             <div class="product-card">

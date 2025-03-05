@@ -153,6 +153,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Actualizar en scroll
     window.addEventListener('scroll', updateHeaderStyle);
 
+    // Inicializa el carrusel
+    inicializarCarrusel();
+
+    // Función para inicializar el carrusel
     function inicializarCarrusel() {
         let slider = document.getElementById('slider');
         if (slider && slider.children.length > 0) {
@@ -165,16 +169,8 @@ document.addEventListener('DOMContentLoaded', function() {
             slider.children[0].style.opacity = 1;
             slider.children[0].style.zIndex = 1;
 
-            let listslider = document.querySelector('.listslider');
-            if (listslider && listslider.children.length > 0) {
-                listslider.children[0].querySelector('a').classList.add('item-select-slid');
-            }
-
             // Inicia el carrusel automático
             setInterval(() => funcionEjecutar("siguiente"), 5000);
         }
     }
-
-    // Llama a la función de inicialización
-    inicializarCarrusel();
 });

@@ -13,16 +13,15 @@ from flask_wtf.csrf import generate_csrf
 bp = Blueprint('usuarios', __name__)
 
 @bp.route('/cliente/dashboard')
+@login_required
 def cliente_dashboard():
     try:
-        vehiculos = Vehiculo.query.all()
-        current_app.logger.info(f"Número de vehículos encontrados: {len(vehiculos)}")
         imagenes_c = CarruselSlide.query.order_by(CarruselSlide.orden).all()
-        print(f"Número de imágenes en el carrusel: {len(imagenes_c)}")
-        return render_template('vista/Vista_Us.html', vehiculos=vehiculos, imagenes_c=imagenes_c)
+        current_app.logger.info(f"Número de imágenes en el carrusel: {len(imagenes_c)}")
+        return render_template('vista/Vista_Us.html', imagenes_c=imagenes_c)
     except Exception as e:
-        current_app.logger.error(f"Error al obtener vehículos: {str(e)}")
-        return render_template('vista/Vista_Us.html', vehiculos=[], imagenes_c=[])
+        current_app.logger.error(f"Error al obtener imágenes del carrusel: {str(e)}")
+        return render_template('vista/Vista_Us.html', imagenes_c=[])
 
 @bp.route('/admin/dashboard')
 @login_required
